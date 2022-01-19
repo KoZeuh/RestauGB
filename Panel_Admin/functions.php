@@ -7,7 +7,7 @@
 </head>
 <body>
     
-<?php       
+<?php  
     function VerifAuthentification(){
         session_start();
             
