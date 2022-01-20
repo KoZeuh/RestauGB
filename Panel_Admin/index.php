@@ -21,7 +21,7 @@
 
 <body>
 	<header>
-		<div id="logo"><img src="/logo.png">Restaurant GB - Administration</div>
+		<div id="logo"><img src="IMG/logo.png">Restaurant GB - Administration</div>
 		<nav>  
 			<ul>
 				<?php

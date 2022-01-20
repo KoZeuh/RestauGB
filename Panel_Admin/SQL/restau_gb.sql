@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 20 jan. 2022 à 21:51
+-- Généré le : jeu. 20 jan. 2022 à 22:40
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -43,8 +43,7 @@ CREATE TABLE IF NOT EXISTS `admin_comptes` (
 --
 
 INSERT INTO `admin_comptes` (`prenom`, `nom`, `identifiant`, `mot_de_passe`, `perm_gest_admin`, `perm_gest_reserv`) VALUES
-('Maxime', 'DP', 'maxime.dp', '098f6bcd4621d373cade4e832627b4f6', 1, 1),
-('Dylan', 'Lemaire', 'dylan.lemaire', '82406c12ec228dfc408fc19827959907', 1, 1);
+('KoZeuh', 'Dev', 'kozeuh.dev', '098f6bcd4621d373cade4e832627b4f6', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -73,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `id_Reservation` int(10) NOT NULL AUTO_INCREMENT,
   `prenom` varchar(255) NOT NULL,
   `nom` varchar(255) NOT NULL,
-  `telephone` int(10) NOT NULL,
+  `telephone` int(11) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `date_Reservation` date NOT NULL,
   `nbr_Personnes` int(2) NOT NULL,
@@ -85,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
 --
 
 INSERT INTO `reservations` (`id_Reservation`, `prenom`, `nom`, `telephone`, `mail`, `date_Reservation`, `nbr_Personnes`) VALUES
-(1, 'Clement', 'Condette', 612345689, 'test@test.fr', '2022-01-02', 3);
+(1, 'Michel', 'Ruel', 612345689, 'test@test.fr', '2022-01-02', 3);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

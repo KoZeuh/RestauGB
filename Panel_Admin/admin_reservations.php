@@ -21,7 +21,7 @@
 
 <body>
 	<header>
-		<div id="logo"><img src="/logo.png">Restaurant GB - Administration</div>
+		<div id="logo"><img src="IMG/logo.png">Restaurant GB - Administration</div>
 		<nav>  
 			<ul>
 				<?php
@@ -76,7 +76,7 @@
 							if ($_SESSION['perm_gest_reserv'] == 1){
 								echo '<div class="card"><h1>'.$row['prenom'].' '.$row['nom'].'</h1>
 									<p class="card__name">Date de réservation : '.date('d-m-Y', strtotime($row['date_Reservation'])).'</p>
-									<p class="card__name">Téléphone : '.$row['telephone'].'</p>
+									<p class="card__name">Téléphone : 0'.$row['telephone'].'</p>
 									<p class="card__name">E-mail : '.$row['mail'].'</p>
 									<p class="card__name">Nombre de personne(s) : '.$row['nbr_Personnes'].'</p>
 									<button class="btn draw-border"><a href="./admin_reservations.php?id='.$row['id_Reservation'].'">Annuler</a></button>
