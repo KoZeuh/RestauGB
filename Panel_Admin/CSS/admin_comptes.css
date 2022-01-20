@@ -1,18 +1,27 @@
-html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
 
-body{line-height:1; font-family: arial;}
-
-h1{font-size: 25px;}h2{font-size: 21px;}h3{font-size: 18px;}h4{font-size: 16px;}
 
 body,html {
-	background-color: #FFF;
+	background-color: #27293b;
 }
+
+body{
+    line-height:1;
+    font-family: arial;
+}
+
+h1{
+    font-size: 25px;
+}
+
+
 header {
-    background: #AEC6CF;
+    background: #15172b;
     padding: 20px 30px;
     max-width: 940px;
     margin: auto;
 }
+
+
 nav {
     display: inline-block;
 }
@@ -35,36 +44,38 @@ nav ul li {
 nav ul {
     list-style: none;
 }
-#pageContent {
-    max-width: 1000px;
-    margin: auto;
-    border: none;
-}
 
 
-article {
-    border-bottom: 2px dotted #999;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 15px;
 }
-article h2 {
-    font-weight: normal;
-    margin-bottom: 12px;
+
+.container2 {
+  display: grid;
+  grid-template-columns: 300px 300px 300px;
+  grid-gap: 15px;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  font-family: 'Baloo Paaji 2', cursive;
 }
+
 
 footer {
-	background: #AEC6CF;
+	background: #15172b;
 	max-width: 1000px;
 	margin: auto;
 	clear: both;
 	text-align: center;
+
+  padding: 10px;
+  color: #65657b;
 }
-footer p {
-	padding: 20px;
-}
-address {
-    padding: 10px 20px 30px 10px;
-}
+
 
 #logo {
     display: inline-block;
@@ -73,11 +84,13 @@ address {
     margin-right: 75px;
     color: #FFF;
 }
+
 #logo img {
     width: 50px;
     vertical-align: middle;
     margin-right: 10px;
 }
+
 body > section {
     max-width: 1000px;
     margin: auto;
@@ -91,6 +104,7 @@ body > section {
 		padding: 30px 20px;
 	}
 }
+
 @media screen and (max-width: 600px) {
 	main {
 		float: none;
@@ -98,24 +112,25 @@ body > section {
 	}
 }
 
+
 * {
     box-sizing: border-box;
-  }
+}
 
-  input[type=text],input[type=password], select, textarea {
+input[type=text],input[type=password], select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
-  }
+}
 
-  label {
+label {
     padding: 12px 12px 12px 0;
     display: inline-block;
-  }
+}
 
-  input[type=submit] {
+input[type=submit] {
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
@@ -123,7 +138,7 @@ body > section {
     border-radius: 4px;
     cursor: pointer;
       float:right;
-  }
+}
 
   input[type=submit]:hover {
     background-color: #45a049;
@@ -160,21 +175,14 @@ body > section {
       width: 100%;
       margin-top: 0;
     }
+
   }
 
-  .container2 {
-    display: grid;
-    grid-template-columns: 300px 300px 300px;
-    grid-gap: 50px;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: 'Baloo Paaji 2', cursive;
-  }
+
 
   .card {
     background-color: #222831;
-    height: 15rem;
+    height: 10rem;
     border-radius: 5px;
     display: flex;
     flex-direction: column;

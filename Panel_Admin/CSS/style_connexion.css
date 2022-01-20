@@ -1,19 +1,25 @@
-html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
-
-body{line-height:1; font-family: arial;}
-
-h1{font-size: 25px;}h2{font-size: 21px;}h3{font-size: 18px;}h4{font-size: 16px;}
-
-
 body,html {
-	background-color: #FFF;
+	background-color: #27293b;
 }
+
+body{
+    line-height:1;
+    font-family: arial;
+}
+
+h1{
+    font-size: 25px;
+}
+
+
 header {
-    background: #AEC6CF;
+    background: #15172b;
     padding: 20px 30px;
     max-width: 940px;
     margin: auto;
 }
+
+
 nav {
     display: inline-block;
 }
@@ -37,54 +43,29 @@ nav ul {
     list-style: none;
 }
 
-#pageContent {
-    max-width: 1000px;
-    margin: auto;
-    border: none;
-}
+
 main {
 	float: left;
     width: 100%;
 
     display: flex;
     justify-content: center;
-}
-aside {
-	float: right;
-	width: 30%;
-}
 
-article {
-    border-bottom: 2px dotted #999;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-}
-
-article h2 {
-    font-weight: normal;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 
 footer {
-	background: #AEC6CF;
+	background: #15172b;
 	max-width: 1000px;
 	margin: auto;
 	clear: both;
 	text-align: center;
+
+    padding: 10px;
+    color: #65657b;
 }
 
-footer p {
-	padding: 20px;
-}
-address {
-    padding: 10px 20px 30px 10px;
-}
-aside > div {
-	margin: 10px auto;
-	background: #AEC6CF;
-	min-height: 100px;
-}
 #logo {
     display: inline-block;
     vertical-align: middle;
@@ -92,11 +73,13 @@ aside > div {
     margin-right: 75px;
     color: #FFF;
 }
+
 #logo img {
     width: 50px;
     vertical-align: middle;
     margin-right: 10px;
 }
+
 body > section {
     max-width: 1000px;
     margin: auto;
@@ -110,25 +93,120 @@ body > section {
 		padding: 30px 20px;
 	}
 }
+
 @media screen and (max-width: 600px) {
 	main {
 		float: none;
 		width: 100%;
 	}
-	aside {
-		float: none;
-		width: 100%;
-	}
-
 }
 
 
-.form_center {
-    border: 2px solid blue;
-    width: 50%;
+.form {
+    background-color: #15172b;
+    border-radius: 20px;
+    box-sizing: border-box;
+    height: 500px;
+    padding: 20px;
+    width: 320px;
+}
+  
+.title {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 30px;
+    text-align: center;
 }
 
-.form_center form {
-    display: flex;
-    justify-content: center;
+  
+.input-container {
+    height: 50px;
+    position: relative;
+    width: 100%;
+}
+  
+.ic1 {
+    margin-top: 40px;
+}
+  
+.ic2 {
+    margin-top: 30px;
+}
+  
+.input {
+    background-color: #303245;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    font-size: 18px;
+    height: 100%;
+    outline: 0;
+    padding: 4px 20px 0;
+    width: 100%;
+}
+  
+.cut {
+    background-color: #15172b;
+    border-radius: 10px;
+    height: 20px;
+    left: 20px;
+    position: absolute;
+    top: -20px;
+    transform: translateY(0);
+    transition: transform 200ms;
+    width: 76px;
+}
+  
+.cut-short {
+    width: 50px;
+}
+  
+.input:focus ~ .cut,.input:not(:placeholder-shown) ~ .cut {
+    transform: translateY(8px);
+}
+  
+.placeholder {
+    color: #65657b;
+    font-family: sans-serif;
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 20px;
+}
+  
+.input:focus ~ .placeholder,.input:not(:placeholder-shown) ~ .placeholder {
+    transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+  
+.input:not(:placeholder-shown) ~ .placeholder {
+    color: #808097;
+}
+  
+.input:focus ~ .placeholder {
+    color: #dc2f55;
+}
+  
+.submit {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 38px;
+    outline: 0;
+    text-align: center;
+    width: 100%;
+}
+  
+.submit:active {
+    background-color: #06b;
 }

@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    
 <?php  
     function VerifAuthentification(){
         session_start();
@@ -19,14 +10,24 @@
 
     function LoadPageAccess(){
         if(!isset($_SESSION['auth'])){
-            echo '<li><a href="./index.php">Connexion</a></li>';
+            echo '<li><a href="./index.php">Accueil</a></li>';
         }else {
-            echo '<li><a href="./admin_reservations.php">Gestion des réservations</a>';
-            echo '<li><a href="./admin_comptes.php">Gestion des administrateurs</a>';
+            echo '<li><a href="./index.php">Accueil</a></li>';
+            if (isset($_SESSION['perm_gest_reserv'])){
+                if ($_SESSION['perm_gest_reserv'] == 1){
+                    echo '<li><a href="./admin_reservations.php">Gestion des réservations</a>';
+                }
+            }
+            
+
+            if (isset($_SESSION['perm_gest_admin'])){
+                if ($_SESSION['perm_gest_admin'] == 1){
+                    echo '<li><a href="./admin_comptes.php">Gestion des administrateurs</a>';
+                }
+            }
+            
         };
     };
 
 ?>
-</body>
-</html>
 

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 18 jan. 2022 à 16:21
--- Version du serveur :  10.4.10-MariaDB
--- Version de PHP :  7.3.12
+-- Généré le : jeu. 20 jan. 2022 à 21:51
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `restau_gb`
+-- Base de données : `restau_gb`
 --
 
 -- --------------------------------------------------------
@@ -34,6 +33,8 @@ CREATE TABLE IF NOT EXISTS `admin_comptes` (
   `nom` varchar(255) NOT NULL,
   `identifiant` varchar(255) NOT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
+  `perm_gest_admin` int(1) NOT NULL,
+  `perm_gest_reserv` int(1) NOT NULL,
   PRIMARY KEY (`identifiant`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -41,9 +42,9 @@ CREATE TABLE IF NOT EXISTS `admin_comptes` (
 -- Déchargement des données de la table `admin_comptes`
 --
 
-INSERT INTO `admin_comptes` (`prenom`, `nom`, `identifiant`, `mot_de_passe`) VALUES
-('Maxime', 'DP', 'max.dp', '098f6bcd4621d373cade4e832627b4f6'),
-('Maxime2', 'DP2', 'max.dp2', '098f6bcd4621d373cade4e832627b4f6');
+INSERT INTO `admin_comptes` (`prenom`, `nom`, `identifiant`, `mot_de_passe`, `perm_gest_admin`, `perm_gest_reserv`) VALUES
+('Maxime', 'DP', 'maxime.dp', '098f6bcd4621d373cade4e832627b4f6', 1, 1),
+('Dylan', 'Lemaire', 'dylan.lemaire', '82406c12ec228dfc408fc19827959907', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -75,8 +76,16 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `telephone` int(10) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `date_Reservation` date NOT NULL,
+  `nbr_Personnes` int(2) NOT NULL,
   PRIMARY KEY (`id_Reservation`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `reservations`
+--
+
+INSERT INTO `reservations` (`id_Reservation`, `prenom`, `nom`, `telephone`, `mail`, `date_Reservation`, `nbr_Personnes`) VALUES
+(1, 'Clement', 'Condette', 612345689, 'test@test.fr', '2022-01-02', 3);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
