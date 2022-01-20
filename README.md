@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://prnt.sc/26gjqu7"  width="25%"/>
+  <img src="https://zupimages.net/up/22/03/szu1.png"  width="25%"/>
 </a>
     
 </p>
