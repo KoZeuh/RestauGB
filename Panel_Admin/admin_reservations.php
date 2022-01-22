@@ -71,6 +71,9 @@
 					$data->bindParam(':date_reserv', $choiceDate);
 					$data->execute();
 
+					$nbrReserv = 0;
+					$nbrTables = 0;
+
 					foreach ($data as $row) {
 						if (isset($_SESSION['perm_gest_reserv'])){
 							if ($_SESSION['perm_gest_reserv'] == 1){
@@ -79,13 +82,19 @@
 									<p class="card__name">Téléphone : 0'.$row['telephone'].'</p>
 									<p class="card__name">E-mail : '.$row['mail'].'</p>
 									<p class="card__name">Nombre de personne(s) : '.$row['nbr_Personnes'].'</p>
-									<button class="btn draw-border"><a href="./admin_reservations.php?id='.$row['id_Reservation'].'">Annuler</a></button>
+									<button class="btn draw-border"><a href="./admin_reservations.php?id_Reservation='.$row['id_Reservation'].'">Annuler</a></button>
 									</div>';
 							}else {
 								echo '<div class="card"><p class="card__name">'.$row['prenom'].' - '.$row['nom'].'</p></div>';
 							}
 						}
+
+						$nbrTables = $nbrTables+intval($row['nbr_Personnes']);
+						$nbrReserv++;
 					}
+
+					echo 'Nombre de réservation(s) à ce jour : '.$nbrReserv.'<br>';
+					echo 'Nombre de personnes(s) : '.$nbrTables.'<br>';
 				}else {
 					$data = $db->prepare("SELECT * FROM reservations");
 					$data->execute();
@@ -97,7 +106,7 @@
 									<p class="card__name">Téléphone : '.$row['telephone'].'</p>
 									<p class="card__name">E-mail : '.$row['mail'].'</p>
 									<p class="card__name">Nombre de personne(s) : '.$row['nbr_Personnes'].'</p>
-									<button class="btn draw-border"><a href="./admin_reservations.php?id='.$row['id_Reservation'].'">Annuler</a></button>
+									<button class="btn draw-border"><a href="./admin_reservations.php?id_Reservation='.$row['id_Reservation'].'">Annuler</a></button>
 									</div>';
 							}else {
 								echo '<div class="card"><p class="card__name">'.$row['prenom'].' - '.$row['nom'].'</p></div>';
@@ -108,9 +117,9 @@
 
 
 				if (!empty($_GET["id_Reservation"])){
-					$dataId = $_GET['id_Reservation'];
+					$dataId = intval($_GET['id_Reservation']);
 
-					$req = $db->prepare("DELETE FROM admin_reservations WHERE id_Reservation = :reserv_id");
+					$req = $db->prepare("DELETE FROM reservations WHERE id_Reservation = :reserv_id");
 					$req->bindParam(':reserv_id', $dataId);
 					$req->execute();
             		$req = null;
