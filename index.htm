@@ -29,12 +29,16 @@
     .para
     {
         width:30%;
+		word-break:break-all;
+		margin-top:2px;
     }
-    .lefies
+    .lefties
     {
-        display:flex;
-        flex-direction: column;
-        float:right;
+		display:flex;
+		flex-direction:column;
+		clear:both;
+		position:absolute;
+		left:65%;
     }
     .promo
     {
@@ -46,9 +50,11 @@
     }
     .sk_promo
     {
-        align-content: center;
+		margin-top:15%;
         text-align: center;
-    }
+		width:100%;
+
+	}
     </style>
 </head>
 <body>
@@ -66,15 +72,18 @@
         <h1>TEST</h1>
         <p>TEXT TEXT TEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXT</p>
     </div>
-    <div class="para, lefties">
-        <p style="text-align:right;">TEXT TEXT TEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXT</p><br />
-        <h1 style="text-align:right;">TITRE</h1>
+		<br />
+	
+    <div class="para lefties">
+        <p class="">TEXT TEXT TEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXT</p><br />
+        <h1 class="">TITRE</h1>
     </div>
 
-    <div class="sk_promo">
+		<div class="sk_promo">
             <button class="promo">RESERVER UNE SALLE</button>
         </div>
-    <div class="para">
+		
+    <div class="para" style="">
         <H1>LOCALISATION</H1>
         <p>TEXT TEXT TEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXTTEXT TEXT</p>
     </div>
