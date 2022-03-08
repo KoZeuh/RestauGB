@@ -1,0 +1,267 @@
+body,html {
+	background-color: #27293b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body{
+    line-height:1;
+    font-family: arial;
+}
+
+h1{
+    font-size: 25px;
+}
+
+
+header {
+    background: #15172b;
+
+    padding: 20px 30px;
+    max-width: 940px;
+    margin: auto;
+}
+
+
+nav {
+    display: inline-block;
+}
+nav ul li a {
+    background: #EEE;
+    padding: 2px 10px;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #444;
+    border-radius: 10px;
+}
+nav ul li a:hover {
+	background: #FFF;
+}
+nav ul li {
+    display: inline-block;
+    margin: 10px;
+}
+nav ul {
+    list-style: none;
+}
+
+
+footer {
+	background: #15172b;
+	max-width: 1000px;
+	margin: auto;
+	clear: both;
+	text-align: center;
+
+    padding: 10px;
+    color: #65657b;
+}
+
+
+#logo {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 30px;
+    margin-right: 75px;
+    color: #FFF;
+}
+
+#logo img {
+    width: 50px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+body > section {
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px 0px;
+    border-bottom: 1px solid #999;
+    color: #333;
+}
+
+@media screen and (max-width: 1000px) {
+	body > section {
+		padding: 30px 20px;
+	}
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    grid-gap: 30px;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: auto;
+    font-family: 'Baloo Paaji 2', cursive;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgb(226, 12, 12);
+    max-width: 500px;
+    min-width: 150px;
+    min-height: 120px;
+    margin: auto;
+    text-align: center;
+
+    background-color: #222831;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+
+    margin-bottom: 50px;
+}
+
+.card__name {
+    margin-top: 15px;
+}
+
+  
+.check {
+	position: relative;
+	background: linear-gradient(90deg, #1f8d04, #1f8d04);
+	line-height: 0;
+	perspective: 400px;
+}
+
+.check input[type="checkbox"],
+.check label,
+.check label::before,
+.check label::after,
+.check {
+	appearance: none;
+	display: inline-block;
+	border-radius: 1rem;
+	border: 0;
+	transition: .35s ease-in-out;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.check label {
+	width: 2.2rem;
+	height: 1rem;
+	background: #d7d7d7;
+	overflow: hidden;
+}
+
+.check input[type="checkbox"] {
+	position: absolute;
+	z-index: 1;
+	width: .8rem;
+	height: .8rem;
+	top: .1rem;
+	left: .1rem;
+	outline: none;
+}
+
+.check input[type="checkbox"]:checked {
+	left: 1.3rem;
+}
+
+.check input[type="checkbox"]:checked + label {
+	background: transparent;
+}
+
+.check label::before,
+.check label::after {
+	position: absolute;
+	overflow: hidden;
+	left: .15rem;
+	top: .5rem;
+	height: 1rem;
+	letter-spacing: -.04rem;
+	color: #9b9b9b;
+	font-family: "Times New Roman", serif;
+	z-index: 2;
+	font-size: .6rem;
+	border-radius: 0;
+	transform-origin: 0 0 -.5rem;
+	backface-visibility: hidden;
+}
+
+.check label::after {
+	top: .65rem;
+	left: .3rem;
+	height: .1rem;
+	width: .35rem;
+	font-size: .2rem;
+	transform-origin: 0 0 -.4rem;
+}
+
+.check input[type="checkbox"]:checked + label::before,
+.check input[type="checkbox"]:checked + label::after {
+	left: 1.55rem;
+	top: .4rem;
+	line-height: .1rem;
+	transform: rotateY(360deg);
+}
+
+.check input[type="checkbox"]:checked + label::after {
+	height: .16rem;
+	top: .55rem;
+	left: 1.6rem;
+	font-size: .6rem;
+	line-height: 0;
+}
+
+
+
+input[type=date], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float:right;
+  margin: 15px;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

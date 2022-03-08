@@ -76,16 +76,10 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `mail` varchar(255) NOT NULL,
   `date_Reservation` date NOT NULL,
   `nbr_Personnes` int(2) NOT NULL,
+  `service` varchar(10) NOT NULL,
   PRIMARY KEY (`id_Reservation`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `reservations`
---
-
-INSERT INTO `reservations` (`id_Reservation`, `prenom`, `nom`, `telephone`, `mail`, `date_Reservation`, `nbr_Personnes`) VALUES
-(1, 'Michel', 'Ruel', 612345689, 'test@test.fr', '2022-01-02', 3);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

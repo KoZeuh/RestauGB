@@ -119,24 +119,27 @@
 						}
 		
 						$txt_identifiant = strtolower(htmlspecialchars(stripslashes($txt_prenom)).'.'.htmlspecialchars(stripslashes($txt_nom)));
-		
-						$data = $db->prepare("SELECT * FROM admin_comptes");
-						$data->execute();
-				
 						$userExist = False;
-						foreach ($data as $row) {
-							if ($row['identifiant'] == $txt_identifiant){
+						$requete = mysqli_query($db,"SELECT * FROM admin_comptes");
+						$ligne;
+			
+						while ($ligne = mysqli_fetch_assoc($requete)){
+							if ($ligne['identifiant'] == $txt_identifiant){
 								$userExist = True;
 							};
-						}
+						}			
 		
 						if ($userExist){
 						  echo '<center><p style="color:red">Cet utilisateur existe déjà !</p></center>';
 						}else {
-						  $sql = "INSERT INTO admin_comptes (prenom,nom,identifiant,mot_de_passe,perm_gest_admin,perm_gest_reserv) VALUES (?,?,?,?,?,?)";
-						  $db->prepare($sql)->execute([$txt_prenom,$txt_nom,$txt_identifiant,$txt_mdp,$check_gest_admin,$check_reserv_admin]);
-						  $sql = null;
-						  echo '<center><p style="color:green">L\'utilisateur '.$txt_identifiant.' a bien été ajouté.</p></center>';
+							$requete = mysqli_query($db, "INSERT INTO admin_comptes (prenom,nom,identifiant,mot_de_passe,perm_gest_admin,perm_gest_reserv) VALUES ('". $txt_prenom ."','". $txt_nom ."','". $txt_identifiant ."','". $txt_mdp ."','". $check_gest_admin ."','". $check_reserv_admin ."')");
+
+                            if ($requete){
+                                echo '<center><p style="color:green">L\'utilisateur '.$txt_identifiant.' a bien été ajouté.</p></center>';
+                            }else {
+                                echo '<center><p style="color:red">Une erreur est survenu lors de l\'ajout ! </p></center>';
+                            }
+						  
 						}
 					}else {
 						echo "<p style='color:red;text-align:center;'>Tu n'as pas cette permission !</p>";
@@ -151,29 +154,25 @@
 	<main role="main">
 		<div class="container2">
 			<?php
-				$data = $db->prepare("SELECT * FROM admin_comptes");
-				$data->execute();
+				$requete = mysqli_query($db,"SELECT * FROM admin_comptes");
+				$ligne;
 
-          		foreach ($data as $row) {
+				while ($ligne = mysqli_fetch_assoc($requete)){
 					if (isset($_SESSION['perm_gest_admin'])){
 						if ($_SESSION['perm_gest_admin'] == 1){
-							echo '<div class="card"><p class="card__name">'.$row['prenom'].' '.$row['nom'].'</p>
-    				    		<button class="btn draw-border"><a href="./admin_comptes.php?id='.$row['identifiant'].'">Supprimer</a></button>
+							echo '<div class="card"><p class="card__name">'.$ligne['prenom'].' '.$ligne['nom'].'</p>
+    				    		<button class="btn draw-border"><a href="./admin_comptes.php?id='.$ligne['identifiant'].'">Supprimer</a></button>
 								</div>';
 						}else {
-							echo '<div class="card"><p class="card__name">'.$row['prenom'].' - '.$row['nom'].'</p></div>';
+							echo '<div class="card"><p class="card__name">'.$ligne['prenom'].' - '.$ligne['nom'].'</p></div>';
 						}
 					}
-					
-          		}
+				}
 
 				if (!empty($_GET["id"])){
 					$dataId = $_GET['id'];
 
-					$req = $db->prepare("DELETE FROM admin_comptes WHERE identifiant = :user_id");
-					$req->bindParam(':user_id', $dataId);
-					$req->execute();
-            		$req = null;
+					$requete = mysqli_query($db,"DELETE FROM admin_comptes WHERE identifiant = $dataId");
 
 					header('Location: admin_comptes.php');
 				};

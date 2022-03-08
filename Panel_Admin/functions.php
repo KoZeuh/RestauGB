@@ -25,9 +25,36 @@
                     echo '<li><a href="./admin_comptes.php">Gestion des administrateurs</a>';
                 }
             }
+
+            echo '<li><a href="./admin_plats.php">Gestion des plats</a>';
             
         };
     };
+
+    function CountAllReserv($date,$service){
+        include 'database.php';
+        $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $date ."' AND service = '". $service ."'");
+        $ligne;
+
+        $NbrCouverts = 0;
+        $NbrPersonnes = 0;
+        $NbrReserv = 0;
+        while ($ligne = mysqli_fetch_assoc($requete)){
+            $nbrPers = intval($ligne['nbr_Personnes']);
+
+            if ($nbrPers%2 != 0){
+                $NbrCouverts = $NbrCouverts+($nbrPers+1);
+            }else {
+                $NbrCouverts = $NbrCouverts+$nbrPers;
+            }
+            
+
+            $NbrPersonnes = $NbrPersonnes+$nbrPers
+            $NbrReserv++;
+        }
+
+        print($NbrCouverts,$NbrPersonnes,$NbrReserv);
+    }
 
 ?>
 

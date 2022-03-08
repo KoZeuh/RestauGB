@@ -46,8 +46,20 @@
       					<label for="start">Choix d'une date de réservation</label>
     				</div>
     				<div class="col-75">
-						<input type="date" id="start" name="trip-start" value="2022-01-01" min="2018-01-01" max="2023-01-01">
+						<input type="date" id="start" name="trip-start" value="2022-03-01" min="2018-01-01" max="2023-01-01" required>
     				</div>
+
+					<div class="col-25">
+      					<label for="service_lst">Choix du service</label>
+    				</div>
+    				<div class="col-75">
+						<select id="service_lst" name="service_lst" size="3" required>
+							<option value="Midi">Midi</option>
+							<option value="Soir">Soir</option>
+							<option value="Midi/Soir">Midi/Soir</option>
+						</select>
+    				</div>
+ 
   				</div>
   				<br>
   				<div class="row">
@@ -56,73 +68,100 @@
   				</div>
   			</form>
 		</div>
-	</section>
-	<main role="main">
-		<div class="container2">
+	
+	
 			<?php
 				$choiceDate = isset($_POST['trip-start']) ? $_POST['trip-start'] : NULL;
+				$choiceDate = strval($choiceDate);
+
+				$choiceService = isset($_POST['service_lst']) ? $_POST['service_lst'] : NULL;
 
 				if (isset($_POST['reset_date'])){
 					$choiceDate = NULL;
+					$choiceService = NULL;
 				}
 
+				$nbrReserv = 0;
+				$nbrTables = 0;
+
+
 				if ($choiceDate != NULL){
-					$data = $db->prepare("SELECT * FROM reservations WHERE date_Reservation = :date_reserv");
-					$data->bindParam(':date_reserv', $choiceDate);
-					$data->execute();
+					echo "<h1 style='color:blue;text-align:center'>Date choisi : $choiceDate</h1><br>";
+				}
+				if ($choiceService != NULL){
+					echo "<h1 style='color:blue;text-align:center'>Service : $choiceService</h1><br>";
+				}
+				
+				
 
-					$nbrReserv = 0;
-					$nbrTables = 0;
+				echo '</section><main role="main">		
+						<div class="container2">';
 
-					foreach ($data as $row) {
+				if ($choiceDate != NULL && $choiceService != NULL){
+					$requete;
+					if ($choiceService == "Midi/Soir"){
+						$requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $choiceDate ."'");
+					}else {
+						$requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $choiceDate ."' AND service = '". $choiceService ."'");
+					}
+					
+					$ligne;
+
+					
+					while ($ligne = mysqli_fetch_assoc($requete)){
 						if (isset($_SESSION['perm_gest_reserv'])){
 							if ($_SESSION['perm_gest_reserv'] == 1){
-								echo '<div class="card"><h1>'.$row['prenom'].' '.$row['nom'].'</h1>
-									<p class="card__name">Date de réservation : '.date('d-m-Y', strtotime($row['date_Reservation'])).'</p>
-									<p class="card__name">Téléphone : 0'.$row['telephone'].'</p>
-									<p class="card__name">E-mail : '.$row['mail'].'</p>
-									<p class="card__name">Nombre de personne(s) : '.$row['nbr_Personnes'].'</p>
-									<button class="btn draw-border"><a href="./admin_reservations.php?id_Reservation='.$row['id_Reservation'].'">Annuler</a></button>
+								echo '<div class="card"><h1>'.$ligne['prenom'].' '.$ligne['nom'].'</h1>
+									<p class="card__name">Date de réservation : '.date('d-m-Y', strtotime($ligne['date_Reservation'])).'</p>
+									<p class="card__name">Téléphone : 0'.$ligne['telephone'].'</p>
+									<p class="card__name">E-mail : '.$ligne['mail'].'</p>
+									<p class="card__name">Nombre de personne(s) : '.$ligne['nbr_Personnes'].'</p>
+									<p class="card__name">Service : '.$ligne['service'].'</p>
+									<button class="btn draw-border"><a href="./admin_reservations.php?id_Reservation='.$ligne['id_Reservation'].'">Annuler</a></button>
 									</div>';
 							}else {
-								echo '<div class="card"><p class="card__name">'.$row['prenom'].' - '.$row['nom'].'</p></div>';
+								echo '<div class="card"><p class="card__name">'.$ligne['prenom'].' - '.$ligne['nom'].'</p></div>';
 							}
 						}
 
-						$nbrTables = $nbrTables+intval($row['nbr_Personnes']);
+						$nbrTables = $nbrTables+intval($ligne['nbr_Personnes']);
 						$nbrReserv++;
 					}
 
 					echo 'Nombre de réservation(s) à ce jour : '.$nbrReserv.'<br>';
 					echo 'Nombre de personnes(s) : '.$nbrTables.'<br>';
 				}else {
-					$data = $db->prepare("SELECT * FROM reservations");
-					$data->execute();
-					foreach ($data as $row) {
+					$requete = mysqli_query($db,"SELECT * FROM reservations");
+					$ligne;
+
+					while ($ligne = mysqli_fetch_assoc($requete)){
 						if (isset($_SESSION['perm_gest_reserv'])){
 							if ($_SESSION['perm_gest_reserv'] == 1){
-								echo '<div class="card"><h1>'.$row['prenom'].' '.$row['nom'].'</h1>
-									<p class="card__name">Date de réservation : '.date('d-m-Y', strtotime($row['date_Reservation'])).'</p>
-									<p class="card__name">Téléphone : '.$row['telephone'].'</p>
-									<p class="card__name">E-mail : '.$row['mail'].'</p>
-									<p class="card__name">Nombre de personne(s) : '.$row['nbr_Personnes'].'</p>
-									<button class="btn draw-border"><a href="./admin_reservations.php?id_Reservation='.$row['id_Reservation'].'">Annuler</a></button>
+								echo '<div class="card"><h1>'.$ligne['prenom'].' '.$ligne['nom'].'</h1>
+									<p class="card__name">Date de réservation : '.date('d-m-Y', strtotime($ligne['date_Reservation'])).'</p>
+									<p class="card__name">Téléphone : '.$ligne['telephone'].'</p>
+									<p class="card__name">E-mail : '.$ligne['mail'].'</p>
+									<p class="card__name">Nombre de personne(s) : '.$ligne['nbr_Personnes'].'</p>
+									<p class="card__name">Service : '.$ligne['service'].'</p>
+									<button class="btn draw-border"><a href="./admin_reservations.php?id_Reservation='.$ligne['id_Reservation'].'">Annuler</a></button>
 									</div>';
 							}else {
-								echo '<div class="card"><p class="card__name">'.$row['prenom'].' - '.$row['nom'].'</p></div>';
+								echo '<div class="card"><p class="card__name">'.$ligne['prenom'].' - '.$ligne['nom'].'</p></div>';
 							}
 						}
+
+						$nbrTables = $nbrTables+intval($ligne['nbr_Personnes']);
+						$nbrReserv++;
 					}
+
+					echo 'Nombre de réservation(s) à ce jour : '.$nbrReserv.'<br>';
+					echo 'Nombre de personnes(s) : '.$nbrTables.'<br>';
 				}
 
 
 				if (!empty($_GET["id_Reservation"])){
 					$dataId = intval($_GET['id_Reservation']);
-
-					$req = $db->prepare("DELETE FROM reservations WHERE id_Reservation = :reserv_id");
-					$req->bindParam(':reserv_id', $dataId);
-					$req->execute();
-            		$req = null;
+					$requete = mysqli_query($db,"DELETE FROM reservations WHERE id_Reservation = $dataId");
 
 					header('Location: admin_reservations.php');
 				};

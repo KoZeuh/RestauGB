@@ -25,8 +25,8 @@
 		<nav>  
 			<ul>
 				<?php
-            LoadPageAccess();
-        ?>
+            		LoadPageAccess();
+        		?>
 			</ul>
 		</nav>
 	</header>
@@ -70,16 +70,18 @@
 		
 		if (!empty($_POST["identifiant"]) && !empty($_POST["mot_de_passe"])){
 			$arrayData = array("identifiant" => htmlspecialchars(stripslashes($_POST['identifiant'])),"mot_de_passe" => md5(htmlspecialchars(stripslashes($_POST['mot_de_passe']))));
-			$data = $db->query("SELECT * FROM admin_comptes")->fetchAll();
 
-			foreach ($data as $row) {
-				if ($row['identifiant'] == $arrayData["identifiant"]){
-					if ($row['mot_de_passe'] == $arrayData['mot_de_passe']){
-						$_SESSION["identifiant"] = $row['identifiant'];
+			$requete = mysqli_query($db,"SELECT * FROM admin_comptes");
+			$ligne;
+
+			while ($ligne = mysqli_fetch_assoc($requete)){
+				if ($ligne['identifiant'] == $arrayData["identifiant"]){
+					if ($ligne['mot_de_passe'] == $arrayData['mot_de_passe']){
+						$_SESSION["identifiant"] = $ligne['identifiant'];
 						$_SESSION['auth'] = "True";
 
-						$_SESSION['perm_gest_admin'] = $row['perm_gest_admin'];
-						$_SESSION['perm_gest_reserv'] = $row['perm_gest_reserv'];
+						$_SESSION['perm_gest_admin'] = $ligne['perm_gest_admin'];
+						$_SESSION['perm_gest_reserv'] = $ligne['perm_gest_reserv'];
 
 						header('Location: index.php');
 					}
