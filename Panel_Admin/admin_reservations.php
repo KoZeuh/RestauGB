@@ -81,15 +81,16 @@
 					$choiceService = NULL;
 				}
 
-				$nbrReserv = 0;
-				$nbrTables = 0;
 
+				if ($choiceDate != NULL && $choiceService != NULL){
+					echo "<h1 style='color:blue;text-align:center'>Date choisi : <span style='color:white'>$choiceDate</span></h1><br>";
+					echo "<h1 style='color:blue;text-align:center'>Service : <span style='color:white'>$choiceService</span></h1><br>";
 
-				if ($choiceDate != NULL){
-					echo "<h1 style='color:blue;text-align:center'>Date choisi : $choiceDate</h1><br>";
-				}
-				if ($choiceService != NULL){
-					echo "<h1 style='color:blue;text-align:center'>Service : $choiceService</h1><br>";
+					$dataReserv = CountAllReserv($choiceDate,$choiceService);
+
+					echo "<h1 style='color:blue;text-align:center'>Total de couverts : <span style='color:white'>$dataReserv[0]</span></h1><br>";
+					echo "<h1 style='color:blue;text-align:center'>Total de personne(s) : <span style='color:white'>$dataReserv[1]</span></h1><br>";
+					echo "<h1 style='color:blue;text-align:center'>Total de réservation(s) : <span style='color:white'>$dataReserv[2]</span></h1><br>";
 				}
 				
 				
@@ -123,13 +124,7 @@
 								echo '<div class="card"><p class="card__name">'.$ligne['prenom'].' - '.$ligne['nom'].'</p></div>';
 							}
 						}
-
-						$nbrTables = $nbrTables+intval($ligne['nbr_Personnes']);
-						$nbrReserv++;
 					}
-
-					echo 'Nombre de réservation(s) à ce jour : '.$nbrReserv.'<br>';
-					echo 'Nombre de personnes(s) : '.$nbrTables.'<br>';
 				}else {
 					$requete = mysqli_query($db,"SELECT * FROM reservations");
 					$ligne;
@@ -149,13 +144,8 @@
 								echo '<div class="card"><p class="card__name">'.$ligne['prenom'].' - '.$ligne['nom'].'</p></div>';
 							}
 						}
-
-						$nbrTables = $nbrTables+intval($ligne['nbr_Personnes']);
-						$nbrReserv++;
 					}
 
-					echo 'Nombre de réservation(s) à ce jour : '.$nbrReserv.'<br>';
-					echo 'Nombre de personnes(s) : '.$nbrTables.'<br>';
 				}
 
 

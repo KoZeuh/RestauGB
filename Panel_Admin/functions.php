@@ -33,12 +33,21 @@
 
     function CountAllReserv($date,$service){
         include 'database.php';
-        $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $date ."' AND service = '". $service ."'");
+
+        $requete;
+        
+        if ($service == "Midi/Soir"){
+            $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $date ."'");
+        }else {
+            $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $date ."' AND service = '". $service ."'");
+        }
+
         $ligne;
 
         $NbrCouverts = 0;
         $NbrPersonnes = 0;
         $NbrReserv = 0;
+
         while ($ligne = mysqli_fetch_assoc($requete)){
             $nbrPers = intval($ligne['nbr_Personnes']);
 
@@ -49,11 +58,12 @@
             }
             
 
-            $NbrPersonnes = $NbrPersonnes+$nbrPers
+            $NbrPersonnes = $NbrPersonnes+$nbrPers;
             $NbrReserv++;
-        }
+        };
 
-        print($NbrCouverts,$NbrPersonnes,$NbrReserv);
+
+        return [$NbrCouverts,$NbrPersonnes,$NbrReserv];
     }
 
 ?>
