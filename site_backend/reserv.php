@@ -1,34 +1,53 @@
 <?php
+require('../Panel_Admin/functions.php');
 if(!empty($_POST))
 {
-    require('link.php');
-
-try{
+    require('../Panel_Admin/database.php');
+    $service = '';
+	$wants_update = 1;
     $prenom_client = $_POST['prenom'];
     $nom_client = $_POST['nom'];
-    $date_rsv = $_POST['comeDate'];
     $tel_client = $_POST['phone'];
     $email_client = $_POST['contactEmail'];
     $nbre_personne = $_POST['nbr_personne'];
-    $prep = mysqli_query($connect, "INSERT INTO reservations(prenom, nom, telephone, mail, date_Reservation, nbr_Personnes) VALUES('$prenom_client', '$nom_client', $tel_client, '$email_client', '$date_rsv', $nbre_personne)");
-    }
-    catch(Exception $e)
+	$datefull = $_POST['comeDate'];
+    $datepart = explode("T", $datefull);
+    $dateint = floatval($datepart[1]);
+	
+	
+	$query = mysqli_query($db,"SELECT COUNT(*) FROM reservations WHERE mail = $email_client");
+
+    if($dateint >= 12 AND $dateint < 18)
     {
-        echo mysqli_error($connect);
+        $service = 'Midi';
     }
+    else
+    {
+        $service = 'Soir';
+    }
+
+
+    $prep = mysqli_query($db, "INSERT INTO reservations(prenom, nom, telephone, mail, date_Reservation, nbr_Personnes, service) VALUES('$prenom_client', '$nom_client', $tel_client, '$email_client', '$datefull', $nbre_personne, '$service')");
+    
+
+    echo mysqli_error($db);
+
 
 
 
     print_r($prep);
     print_r($prenom_client);
     print_r($nom_client);
-    print_r($date_rsv);
+    print_r($datefull);
+    print($datepart[0]);
+    print($datepart[1]);
     print_r($tel_client);
     print_r($email_client);
     print_r($nbre_personne);
-
-
+    print_r($dateint);
+    print_r(CountAllReserv($datefull,$service));
 }
+
 else
 {
     echo 'This page requires POST received GET';

@@ -29,7 +29,7 @@ if($fetch = mysqli_fetch_assoc($query)){
  else
   {
 
-    echo json_encode("Aucun plat a afficher");
+    echo "Aucun plat a afficher";
 
 
 
