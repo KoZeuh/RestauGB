@@ -3,6 +3,7 @@
 	include 'database.php';
 
 	VerifAuthentification();
+	RemoveAfter21Days();
 ?>
 
 <!doctype html>
@@ -17,6 +18,25 @@
     <link rel="stylesheet" href="CSS/style_reservations.css">
 	<script src="JS/script.js"></script>
 
+	<style>
+	.test {
+		display: grid;
+		justify-content: center;
+		align-content: center;
+		
+
+		gap: 10px;
+		grid-auto-flow: column;
+	}
+
+	.item-center {
+		background-color: #444;
+  		color: #fff;
+  		border-radius: 5px;
+  		padding: 20px;
+  		font-size: 150%;
+	}
+	</style>
 </head>
 
 <body>
@@ -25,7 +45,7 @@
 		<nav>  
 			<ul>
 				<?php
-          			LoadPageAccess();
+					LoadPageAccess();
         		?>
 			</ul>
 		</nav>
@@ -83,14 +103,38 @@
 
 
 				if ($choiceDate != NULL && $choiceService != NULL){
-					echo "<h1 style='color:blue;text-align:center'>Date choisi : <span style='color:white'>$choiceDate</span></h1><br>";
-					echo "<h1 style='color:blue;text-align:center'>Service : <span style='color:white'>$choiceService</span></h1><br>";
-
 					$dataReserv = CountAllReserv($choiceDate,$choiceService);
 
-					echo "<h1 style='color:blue;text-align:center'>Total de couverts : <span style='color:white'>$dataReserv[0]</span></h1><br>";
-					echo "<h1 style='color:blue;text-align:center'>Total de personne(s) : <span style='color:white'>$dataReserv[1]</span></h1><br>";
-					echo "<h1 style='color:blue;text-align:center'>Total de réservation(s) : <span style='color:white'>$dataReserv[2]</span></h1><br>";
+					echo '
+
+					<br><div class="test">
+					  <div class="item-center">Date choisi : '.$choiceDate.'</div>
+					  <div class="item-center">Service : '.$choiceService.'</div>
+					</div>
+					
+					';
+
+					echo '
+
+					<br><div class="test">
+					  <div class="item-center">Total de couverts : '.$dataReserv[0].'</div>
+					  <div class="item-center">Total de personne(s) : '.$dataReserv[1].'</div>
+					  <div class="item-center">Total de réservation(s) : '.$dataReserv[2].'</div>
+					</div>
+					
+					';
+				}else {
+					$dataReserv = CountAllReserv("","All");
+
+					echo '
+
+					<br><div class="test">
+					  <div class="item-center">Total de couverts : '.$dataReserv[0].'</div>
+					  <div class="item-center">Total de personne(s) : '.$dataReserv[1].'</div>
+					  <div class="item-center">Total de réservation(s) : '.$dataReserv[2].'</div>
+					</div>
+					
+					';
 				}
 				
 				
@@ -112,12 +156,20 @@
 					while ($ligne = mysqli_fetch_assoc($requete)){
 						if (isset($_SESSION['perm_gest_reserv'])){
 							if ($_SESSION['perm_gest_reserv'] == 1){
+								$nbrCouverts = 0;
+								if ($ligne['nbr_Personnes']%2 != 0){
+									$nbrCouverts = $nbrCouverts+($ligne['nbr_Personnes']+1);
+								}else {
+									$nbrCouverts = $nbrCouverts+$ligne['nbr_Personnes'];
+								}
 								echo '<div class="card"><h1>'.$ligne['prenom'].' '.$ligne['nom'].'</h1>
 									<p class="card__name">Date de réservation : '.date('d-m-Y', strtotime($ligne['date_Reservation'])).'</p>
+									<p class="card__name">Heure de réservation : '.date('H:i:s', strtotime($ligne['date_Reservation'])).'</p>
 									<p class="card__name">Téléphone : 0'.$ligne['telephone'].'</p>
 									<p class="card__name">E-mail : '.$ligne['mail'].'</p>
 									<p class="card__name">Nombre de personne(s) : '.$ligne['nbr_Personnes'].'</p>
-									<p class="card__name">Service : '.$ligne['service'].'</p>
+									<p class="card__name">Nombre de couvert(s) : '.$nbrCouverts.'</p>
+									<button class="btn draw-border"><a href="./admin_reservations.php?action=modif?id_Reservation='.$ligne['id_Reservation'].'">Modifier</a></button>
 									<button class="btn draw-border"><a href="./admin_reservations.php?id_Reservation='.$ligne['id_Reservation'].'">Annuler</a></button>
 									</div>';
 							}else {
@@ -132,12 +184,21 @@
 					while ($ligne = mysqli_fetch_assoc($requete)){
 						if (isset($_SESSION['perm_gest_reserv'])){
 							if ($_SESSION['perm_gest_reserv'] == 1){
+								$nbrCouverts = 0;
+								if ($ligne['nbr_Personnes']%2 != 0){
+									$nbrCouverts = $nbrCouverts+($ligne['nbr_Personnes']+1);
+								}else {
+									$nbrCouverts = $nbrCouverts+$ligne['nbr_Personnes'];
+								}
 								echo '<div class="card"><h1>'.$ligne['prenom'].' '.$ligne['nom'].'</h1>
 									<p class="card__name">Date de réservation : '.date('d-m-Y', strtotime($ligne['date_Reservation'])).'</p>
-									<p class="card__name">Téléphone : '.$ligne['telephone'].'</p>
+									<p class="card__name">Heure de réservation : '.date('H:i:s', strtotime($ligne['date_Reservation'])).'</p>
+									<p class="card__name">Téléphone : 0'.$ligne['telephone'].'</p>
 									<p class="card__name">E-mail : '.$ligne['mail'].'</p>
 									<p class="card__name">Nombre de personne(s) : '.$ligne['nbr_Personnes'].'</p>
+									<p class="card__name">Nombre de couvert(s) : '.$nbrCouverts.'</p>
 									<p class="card__name">Service : '.$ligne['service'].'</p>
+									<button class="btn draw-border"><a href="./admin_reservations.php?action=modif?id_Reservation='.$ligne['id_Reservation'].'">Modifier</a></button>
 									<button class="btn draw-border"><a href="./admin_reservations.php?id_Reservation='.$ligne['id_Reservation'].'">Annuler</a></button>
 									</div>';
 							}else {

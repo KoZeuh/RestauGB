@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `nom` varchar(255) NOT NULL,
   `telephone` int(11) NOT NULL,
   `mail` varchar(255) NOT NULL,
-  `date_Reservation` date NOT NULL,
+  `date_Reservation` datetime NOT NULL,
   `nbr_Personnes` int(2) NOT NULL,
   `service` varchar(10) NOT NULL,
   PRIMARY KEY (`id_Reservation`)

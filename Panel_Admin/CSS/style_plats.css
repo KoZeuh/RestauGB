@@ -89,16 +89,7 @@ body > section {
 	}
 }
 
-.container {
-    display: grid;
-    grid-template-columns: 300px 300px 300px;
-    grid-gap: 30px;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    width: auto;
-    font-family: 'Baloo Paaji 2', cursive;
-}
+
 
 .card {
     box-shadow: 0 4px 8px 0 rgb(226, 12, 12);

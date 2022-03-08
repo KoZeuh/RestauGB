@@ -38,6 +38,8 @@
         
         if ($service == "Midi/Soir"){
             $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $date ."'");
+        }elseif ($service == "All"){
+            $requete = mysqli_query($db,"SELECT * FROM reservations");
         }else {
             $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $date ."' AND service = '". $service ."'");
         }
@@ -64,6 +66,13 @@
 
 
         return [$NbrCouverts,$NbrPersonnes,$NbrReserv];
+    }
+
+    function RemoveAfter21Days(){
+        include 'database.php';
+
+        $date = date("Y-m-d", strtotime('-21 day'));
+        $requete = mysqli_query($db, "DELETE FROM reservations WHERE date_Reservation <= '".$date."'");
     }
 
 ?>

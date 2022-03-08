@@ -17,6 +17,13 @@
     <link rel="stylesheet" href="CSS/style_plats.css">
 	<script src="JS/script.js"></script>
 
+<style>
+	.container {
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	padding: 20px;
+	}
+</style>
 </head>
 
 <body>
@@ -139,7 +146,14 @@
   			<form action="./admin_reservations.php" enctype="multipart/form-data" method="post">
 				<div class="row">
     				<div class="col-25">
-      					<label for="start">Choix d'une date de réservation</label>
+      					<label for="start">Date de début de la carte</label>
+    				</div>
+    				<div class="col-75">
+						<input type="date" id="start" name="trip-start" value="2022-01-01" min="2018-01-01" max="2023-01-01">
+    				</div>
+
+					<div class="col-25">
+      					<label for="start">Date de fin de la carte</label>
     				</div>
     				<div class="col-75">
 						<input type="date" id="start" name="trip-start" value="2022-01-01" min="2018-01-01" max="2023-01-01">
