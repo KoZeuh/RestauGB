@@ -1,0 +1,47 @@
+<html>
+<head>
+
+
+	</head>
+	<body>
+	
+<div id="wrapper">
+</div>
+<script>
+
+function ParseRepas(x)
+{
+	var array = JSON.parse(x);
+	var wrap = document.querySelector('#wrapper');
+
+	var lengthplat = array.nomPlat.length;
+	var lengthprix = array.prixHT.length;
+	for(let i = 0; i<lengthplat; i++)
+	{
+		var p = document.createElement('p');
+
+		var text1 = array.nomPlat[i];
+		var text2 = array.prixHT[i];
+		wrap.append(text1," ",text2,"e",p);
+
+	}
+}
+
+	function request()
+	{
+		var http = new XMLHttpRequest();
+		http.onreadystatechange = function()
+		{
+			if(this.readyState == 4 && this.status == 200)
+			{
+				ParseRepas(this.responseText);
+			}
+		};
+		http.open("get", "getrepas.php");
+		http.send();
+	}
+
+	window.onload = request
+</script>
+	</body>
+</html>
