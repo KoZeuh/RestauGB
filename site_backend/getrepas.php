@@ -1,87 +1,39 @@
-<<<<<<< HEAD
 <?php
-
+header('Content-TYpe: application/json; charset=utf-8');
+$i = 0;
 require('../Panel_Admin/database.php');
 
 $mois = date('m');
 
-$sql = "SELECT * FROM platdujour WHERE numMois = $mois ORDER BY prixHT DESC";
+$sql = "SELECT * FROM platdujour WHERE numMois = ? ORDER BY prixHT DESC";
 
-try
+
+if($bigprep = mysqli_prepare($db, $sql));
 {
-if($query = mysqli_prepare($connect, $sql));
-{
-	mysqli_stmt_bind_param($query, 'i', $mois);
-	mysqli_stmt_execute($query);
-}
-}
-catch(Exception $e)
-{
-    echo mysqli_error($e->getMessage());
+  mysqli_stmt_bind_param($bigprep, 'i', $mois);
 }
 
+mysqli_stmt_execute($bigprep);
+$query = mysqli_stmt_get_result($bigprep);
 
-if($fetch = mysqli_fetch_assoc($query)){
-
-
-
+$array = array();
     while($fetch = mysqli_fetch_assoc($query))
     {
-        $array = array('nomPlat' => $fetch['nomPlatJour'], "prixHT" => $fetch['prixHT']);
-        echo json_encode($array);
+      
+        $array['nomPlat'][$i] = $fetch['nomPlatJour'];
+        $array['prixHT'][$i] = $fetch['prixHT'];
+        $i++;
     }
-    
-}
-
- else
-  {
-
-    echo "Aucun plat a afficher";
 
 
+  
 
-  }
 
-mysqli_stmt_close($query);
+echo json_encode($array);
+
+
+mysqli_stmt_close($bigprep);
+
+
 mysqli_close($db);
-=======
-<?php
-
-require('link.php');
-
-$mois = date('m');
-
-$sql = "SELECT * FROM platdujour WHERE numMois = $mois ORDER BY prixHT DESC";
-
-try
-{
-$query = mysqli_query($connect, $sql);
-}
-catch(Exception $e)
-{
-    echo mysqli_error($connect);
-}
-if($fetch = mysqli_fetch_assoc($query)){
-
-
-
-    while($fetch = mysqli_fetch_assoc($query))
-    {
-        $array = array('nomPlat' => $fetch['nomPlatJour'], "prixHT" => $fetch['prixHT']);
-        echo json_encode($array);
-    }
-    
-}
-
- else
-  {
-
-    echo "Aucun plat a afficher";
-
-
-
-  }
-
-phpinfo();
->>>>>>> 153c6a096df4cadda24983f91e13ff94c75fa9df
 ?>
