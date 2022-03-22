@@ -6,13 +6,13 @@ if(!empty($_POST))
     require('../Panel_Admin/database.php');
 
     $service = '';
-    $prenom_client = $_POST['prenom'];
-    $nom_client = $_POST['nom'];
+    $prenom_client = $_POST['u_prenom'];
+    $nom_client = $_POST['u_nom'];
     
-    $tel_client = $_POST['phone'];
-    $email_client = $_POST['contactEmail'];
-    $nbre_personne = $_POST['nbr_personne'];
-	$datefull = $_POST['comeDate'];
+    $tel_client = $_POST['u_tel'];
+    $email_client = $_POST['u_mail'];
+    $nbre_personne = $_POST['u_nb'];
+	$datefull = $_POST['u_datetime'];
     
     $datepart = explode("T", $datefull);
     $dateint = intval($datepart[1]);

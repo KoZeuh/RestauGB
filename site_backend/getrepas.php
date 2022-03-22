@@ -38,6 +38,5 @@ $query = mysqli_stmt_get_result($bigprep);//WE GET THE RESULT IN ORDER TO FETCH 
 // WE ENCODE INTO JSON(application/json);
 echo json_encode($array);
 // THEN WE CLOSE THE CONNECTION TO THE DATABASEEEEEE
-mysqli_stmt_close($bigprep);
 mysqli_close($db);
 ?>
