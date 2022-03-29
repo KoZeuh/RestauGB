@@ -1,3 +1,4 @@
+<form action="site_backend/reserv.php" method="post">
 <div class="form-container">
 
                     <div class="form-contains">
@@ -31,13 +32,15 @@
                     <div class="form-contains">
                         <div class="form-nb">
                             <label for="u_nb">Personnes :</label><br>
-                            <input type="number" name="nb" id="" placeholder="Nombre de personnes" required>
+                            <input type="number" name="u_nb" id="" placeholder="Nombre de personnes" required>
                         </div>
                     </div>
                     <div class="form-contains">
                         <div class="form-tel">
                             <label for="u_tel">Téléphone :</label><br>
-                            <input type="tel" name="tel" id="" placeholder="Numéro de téléphone" required>
+                            <input type="tel" name="u_tel" id="" placeholder="Numéro de téléphone" required>
                         </div>
                     </div>
                 </div>
+                <input type="submit" value="a" />
+            </form>

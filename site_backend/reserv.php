@@ -1,6 +1,8 @@
 
 <?php
 require('../Panel_Admin/functions.php');
+require('functions.php');
+
 if(!empty($_POST))
 {
     require('../Panel_Admin/database.php');
@@ -28,6 +30,12 @@ if(!empty($_POST))
     }
 
 
+   if(CountAllReserv($datefull,$service)[0] > 70)
+    {
+        echo "Le restaurant est complet pour cette date, veuillez choisir une autre date";
+    }
+    else
+    {
     $array = array($prenom_client, $nom_client, $tel_client, $email_client, $datefull, $nbre_personne, $service);
     //$query = mysqli_query($db,"SELECT id_Reservation, mail, telephone FROM reservations");
     
@@ -38,23 +46,13 @@ if(!empty($_POST))
 
     mysqli_close($db);
 
-/*
-    print_r($prenom_client);
-    print_r($nom_client);
-    print_r($datefull);
-    print($datepart[0]);
-    print($datepart[1]);
-    print_r($tel_client);
-    print_r($email_client);
-    print_r($nbre_personne);
-    print_r($dateint);
-    print_r(CountAllReserv($datefull,$service));
-*/
-
+echo "reussi";
+//Header("Location: ../index.php");
+    }
   }
 
 else
 {
-    echo 'This page requires POST received GET';
+    echo 'This page requires POST received GET please retry again';
 }
 ?>
