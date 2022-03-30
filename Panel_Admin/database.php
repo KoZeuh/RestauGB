@@ -1,3 +1,3 @@
 <?php
-    $db = mysqli_connect("127.0.0.1", "root", "", "resto_gb");
+    $db = mysqli_connect("127.0.0.1", "root", "", "restau_gb");
 ?>
