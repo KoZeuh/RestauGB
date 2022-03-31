@@ -32,7 +32,9 @@ if(!empty($_POST))
 
    if(CountAllReserv($datefull,$service)[0] > 70)
     {
-        echo "Le restaurant est complet pour cette date, veuillez choisir une autre date";
+        echo "Le restaurant est complet pour cette date, veuillez choisir une autre date<meta http-equiv='refresh' content='5;URL=formulaire.php' />;
+
+";
     }
     else
     {
