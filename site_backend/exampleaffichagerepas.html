@@ -32,19 +32,26 @@ function ParseRepas(x)
 
 	function request()
 	{
+		var date = new Date()
 		var http = new XMLHttpRequest();
 		http.onreadystatechange = function()
 		{
 			if(this.readyState == 4 && this.status == 200)
 			{
-				ParseRepas(this.responseText);
+			ParseRepas(this.responseText);
 			}
-		};
+		}
 		http.open("get", "getrepas.php");
 		http.send();
 	}
 
-	window.onload = request
+
+function launch()
+{
+	request("getrepas.json");
+}
+	window.onload = launch
+
 </script>
 	</body>
 </html>

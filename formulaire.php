@@ -14,6 +14,8 @@
                             <label for="u_nom">Nom :</label><br>
                             <input type="text" name="u_nom" placeholder="Votre nom" required>
                         </div>
+
+                        sdfsdfds
                     </div>
     
                     <div class="form-contains">
