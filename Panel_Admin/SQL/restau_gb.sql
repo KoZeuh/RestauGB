@@ -45,6 +45,15 @@ CREATE TABLE IF NOT EXISTS `admin_comptes` (
 INSERT INTO `admin_comptes` (`prenom`, `nom`, `identifiant`, `mot_de_passe`, `perm_gest_admin`, `perm_gest_reserv`) VALUES
 ('KoZeuh', 'Dev', 'kozeuh.dev', '098f6bcd4621d373cade4e832627b4f6', 1, 1);
 
+DROP TABLE IF EXISTS `liste_plats`;
+CREATE TABLE IF NOT EXISTS `liste_plats` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nomPlat` varchar(255) NOT NULL,
+  `prix` int(5) NOT NULL,
+  `nomImage` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
@@ -79,6 +88,8 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `service` varchar(10) NOT NULL,
   PRIMARY KEY (`id_Reservation`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

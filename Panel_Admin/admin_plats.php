@@ -42,221 +42,102 @@
             
         </nav>
 
-        <br>
-        <h3 class="text-center">Liste des Entrées</h3>
-        <br>
+        
+
+
         <form action="./admin_plats.php" enctype="multipart/form-data" method="post">
-        <section>
-            <div class="container">
+        <section><hr>
+            <h3 class="text-center">Liste des Plats</h3>
+
             <div class="row clearfix">
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://archzine.fr/wp-content/uploads/2016/05/feuilles-d-endive-avec-des-noix-fraises-fromage-feta-et-feuilels-de-basilic-idee-de-entre%CC%81e-froide-originale.jpg" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Entrée #1</a></h5>
-                                    <input type="checkbox" class="radio" value="1" name="entree" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://archzine.fr/wp-content/uploads/2016/05/feuilles-d-endive-avec-des-noix-fraises-fromage-feta-et-feuilels-de-basilic-idee-de-entre%CC%81e-froide-originale.jpg" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Entrée #2</a></h5>
-                                    <input type="checkbox" class="radio" value="2" name="entree" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <?php
+                    $requete = mysqli_query($db,"SELECT * FROM liste_plats");
+                    $ligne;
 
-                    <div class="col-lg-3 col-md-4 col-sm-12">
+                    while ($ligne = mysqli_fetch_assoc($requete)){
+                        echo '<div class="col-lg-3 col-md-4 col-sm-12">
                         <div class="card product_item">
                             <div class="body">
                                 <div class="cp_img">
-                                    <img src="https://archzine.fr/wp-content/uploads/2016/05/feuilles-d-endive-avec-des-noix-fraises-fromage-feta-et-feuilels-de-basilic-idee-de-entre%CC%81e-froide-originale.jpg" alt="Product" class="img-fluid">
+                                    <img src="IMG/'.$ligne['nomImage'].'" class="img-fluid">
                                 </div>
                                 <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Entrée #3</a></h5>
-                                    <input type="checkbox" class="radio" value="3" name="entree" /></label>
+                                    <h5><a href="ec-product-detail.html">'.$ligne['nomPlat'].'</a></h5>
+                                    <ul class="product_price list-unstyled">
+                                        <li class="new_price">'.$ligne['prix'].' $</li>
+                                    </ul>
+                                    <input type="checkbox" class="radio" value="'.$ligne['nomPlat'].'" name="plat" />
+                                    <input name="prixPlat" type="hidden" value="'.$ligne['prix'].'">
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://archzine.fr/wp-content/uploads/2016/05/feuilles-d-endive-avec-des-noix-fraises-fromage-feta-et-feuilels-de-basilic-idee-de-entre%CC%81e-froide-originale.jpg" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Entrée #4</a></h5>
-                                    <input type="checkbox" class="radio" value="4" name="entree" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-
-
-                <hr>
-                <h3 class="text-center">Liste des Plats</h3>
-
-                <div class="row clearfix">
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://www.leporc.com/sites/default/files/recettes/plat_mijote_facon_english_breakfast.jpg" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Plat #1</a></h5>
-                                    <input type="checkbox" class="radio" value="1" name="plat" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://www.leporc.com/sites/default/files/recettes/plat_mijote_facon_english_breakfast.jpg" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Plat #2</a></h5>
-                                    <input type="checkbox" class="radio" value="2" name="plat" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://www.leporc.com/sites/default/files/recettes/plat_mijote_facon_english_breakfast.jpg" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Plat #3</a></h5>
-                                    <input type="checkbox" class="radio" value="3" name="plat" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://www.leporc.com/sites/default/files/recettes/plat_mijote_facon_english_breakfast.jpg" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Plat #4</a></h5>
-                                    <input type="checkbox" class="radio" value="4" name="plat" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <hr>
-                <h3 class="text-center">Liste des Desserts</h3>
-
-                <div class="row clearfix">
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://www.finedininglovers.fr/sites/g/files/xknfdk1291/files/styles/recipes_1200_1200_fallback/public/2020-05/ricette_dessert_0.jpg?itok=BcsQRdmo" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Dessert #1</a></h5>
-                                    <input type="checkbox" class="radio" value="1" name="dessert" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://www.finedininglovers.fr/sites/g/files/xknfdk1291/files/styles/recipes_1200_1200_fallback/public/2020-05/ricette_dessert_0.jpg?itok=BcsQRdmo" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Dessert #2</a></h5>
-                                    <input type="checkbox" class="radio" value="2" name="dessert" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://www.finedininglovers.fr/sites/g/files/xknfdk1291/files/styles/recipes_1200_1200_fallback/public/2020-05/ricette_dessert_0.jpg?itok=BcsQRdmo" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Dessert #3</a></h5>
-                                    <input type="checkbox" class="radio" value="3" name="dessert" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-12">
-                        <div class="card product_item">
-                            <div class="body">
-                                <div class="cp_img">
-                                    <img src="https://www.finedininglovers.fr/sites/g/files/xknfdk1291/files/styles/recipes_1200_1200_fallback/public/2020-05/ricette_dessert_0.jpg?itok=BcsQRdmo" alt="Product" class="img-fluid">
-                                </div>
-                                <div class="product_details">
-                                    <h5><a href="ec-product-detail.html">Dessert #4</a></h5>
-                                    <input type="checkbox" class="radio" value="4" name="dessert" /></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </div>';
+                    }
+                ?>
             </div>
-        </section>
+        </section><br>
 
-        <br>
         <section>
               <div class="container">
                 <div class="row">
                   <div class="col-sm-12 content justify-content-start" data-aos="fade-left">
-                    <form action="./admin_plats.php" enctype="multipart/form-data" method="post">
                       <div class="form-row">
                           <div class="col-md-6 mb-3">
-                            <label for="start-date">Date de début</label>
-                            <input type="date" id="start" name="start-date" class="form-control" value="2022-03-01" min="2018-01-01" max="2023-01-01" required>
+                            <select class="custom-select" name="select_jour" required>
+                                <option selected disabled value="">Choix du jour</option>
+                                <option value="1">Mardi</option>
+    						    <option value="2">Mercredi</option>
+                                <option value="3">Jeudi</option>
+                                <option value="4">Vendredi</option>
+                            </select>
                           </div>
                           <div class="col-md-6 mb-3">
-                            <label for="fin-date">Date de fin</label>
-                            <input type="date" id="start" name="fin-date" class="form-control" value="2022-03-01" min="2018-01-01" max="2023-01-01" required>
+                            <select class="custom-select" name="select_mois" required>
+                                <option selected disabled value="">Choix du mois</option>
+                                <option value="1">Janvier</option>
+    						    <option value="2">Février</option>
+                                <option value="3">Mars</option>
+                                <option value="4">Avril</option>
+                                <option value="5">Mai</option>
+                                <option value="6">Juin</option>
+                                <option value="7">Juillet</option>
+                                <option value="8">Août</option>
+                                <option value="9">Septembre</option>
+                                <option value="10">Octobre</option>
+                                <option value="11">Novembre</option>
+                                <option value="12">Décembre</option>
+                            </select>
                           </div>
                       </div>
                       <div class="d-flex justify-content-center">
                         <button class="btn btn-primary" type="submit" name="valid_plat" >Valider</button>
                       </div>
-                    </form>
+                    
                   </div>
                 </div>
         
               </div>
-        </section><!-- Fin A Propos Section -->
+
+                <?php
+                    if (isset($_POST['plat'])){
+                        $nomPlat = $_POST['plat'];
+                        $prixPlat = intval($_POST['prixPlat']);
+                        $choixJour = intval($_POST['select_jour']);
+                        $choixMois = intval($_POST['select_mois']);
+
+                        $sql_result = mysqli_query($db,"SELECT `numJour`,`numMois` FROM `platdujour` WHERE `numJour` =  $choixJour AND `numMois` = $choixMois");
+
+                        if(mysqli_num_rows($sql_result) > 0 ){
+                            $requete = mysqli_query($db,"UPDATE platdujour SET nomPlatJour='". $nomPlat ."',prixHT = '". $prixPlat ."' WHERE numJour = '". $choixJour ."' AND numMois = '". $choixMois ."'");	
+                        }
+                        else{
+                            $requete = mysqli_query($db, "INSERT INTO platdujour (numJour,numMois,nomPlatJour,prixHT) VALUES ('". $choixJour ."','". $choixMois ."','". $nomPlat ."','". $prixPlat ."')");
+                        }
+                    }
+                ?>
+        </section>
+        </form>
+
         
       </div>
 

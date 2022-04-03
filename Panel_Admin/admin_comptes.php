@@ -34,9 +34,9 @@
             <span class="navbar-brand">Restau' GB</span>
             <div class="navbar-collapse collapse w-100 justify-content-center" id="navbar5">
                 <ul class="navbar-nav mx-auto">
-                  <?php
-                    LoadPageAccess();
-                  ?>
+                    <?php
+                        LoadPageAccess();
+                    ?>
                 </ul>
             </div>
             <span class="navbar-text active btn btn-success"><a href="deconnexion.php">Deconnexion</a></span>
@@ -53,21 +53,21 @@
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label for="txt_prenom">Prénom</label>
-                                <input type="text" class="form-control" id="txt_prenom" value="Mark" required>
+                                <input type="text" class="form-control" name="txt_prenom" value="Mark" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="txt_nom">Nom de famille</label>
-                                <input type="text" class="form-control" id="txt_nom" value="Otto" required>
+                                <input type="text" class="form-control" name="txt_nom" value="Otto" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label for="txt_mdp">Mot de passe</label>
-                                <input type="password" class="form-control" id="txt_mdp" required>
+                                <input type="password" class="form-control" name="txt_mdp" required>
                             </div>
                             <div class="col-md-3 mb-3">
                             <label for="check_gest_admin">Gestion des administrateurs</label>
-                                <select class="custom-select" id="check_gest_admin" required>
+                                <select class="custom-select" name="check_gest_admin" required>
                                     <option selected disabled value="">Choisir</option>
                                     <option value="Oui">Oui</option>
     						        <option value="Non">Non</option>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-md-3 mb-3">
                             <label for="check_reserv_admin">Gestion des réservations</label>
-                                <select class="custom-select" id="check_reserv_admin" required>
+                                <select class="custom-select" name="check_reserv_admin" required>
                                     <option selected disabled value="">Choisir</option>
                                     <option value="Oui">Oui</option>
     						        <option value="Non">Non</option>
@@ -124,19 +124,19 @@
                                     }		
                     
                                     if ($userExist){
-                                        echo '<span class="btn btn-danger">Cet utilisateur existe déjà !</span>';
+                                        echo '<br><div class="d-flex justify-content-center"><span class="btn btn-danger">Cet utilisateur existe déjà !</span></div>';
                                     }else {
                                         $requete = mysqli_query($db, "INSERT INTO admin_comptes (prenom,nom,identifiant,mot_de_passe,perm_gest_admin,perm_gest_reserv) VALUES ('". $txt_prenom ."','". $txt_nom ."','". $txt_identifiant ."','". $txt_mdp ."','". $check_gest_admin ."','". $check_reserv_admin ."')");
 
                                         if ($requete){
-                                            echo '<span class="btn btn-success">L\'utilisateur '.$txt_identifiant.' a bien été ajouté.</span>';
+                                            echo '<br><div class="d-flex justify-content-center"><span class="btn btn-success">L\'utilisateur '.$txt_identifiant.' a bien été ajouté.</span></div>';
                                         }else {
-                                            echo '<span class="btn btn-danger">Une erreur est surevnue lors de l\'ajout !</span>';
+                                            echo '<br><div class="d-flex justify-content-center"><span class="btn btn-danger">Une erreur est survenue lors de l\'ajout !</span></div>';
                                         }
                                     
                                     }
                                 }else {
-                                    echo "<p style='color:red;text-align:center;'>Tu n'as pas cette permission !</p>";
+                                    echo '<br><div class="d-flex justify-content-center"><span class="btn btn-danger">Tu n\'as pas cette permission !</span></div>';
                                 }
                             }
                         }
@@ -191,9 +191,10 @@
                     if (!empty($_GET["id"])){
                         $dataId = $_GET['id'];
 
-                        $requete = mysqli_query($db,"DELETE FROM admin_comptes WHERE identifiant = $dataId");
-
-                        header('Location: admin_comptes.php');
+                        $requete = mysqli_query($db,"DELETE FROM admin_comptes WHERE identifiant = '". $dataId ."'");
+                        exit("");
+                        
+                        
                     };
       		    ?>
 

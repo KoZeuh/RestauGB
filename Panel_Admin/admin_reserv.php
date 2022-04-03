@@ -54,11 +54,11 @@
                       <div class="form-row">
                           <div class="col-md-6 mb-3">
                             <label for="start">Choix d'une date de réservation :</label>
-                            <input type="date" id="start" name="trip-start" class="form-control" value="2022-03-01" min="2018-01-01" max="2023-01-01" required>
+                            <input type="date" id="start" name="trip-start" class="form-control" min="2018-01-01" max="2023-01-01" required>
                           </div>
                           <div class="col-md-6 mb-3">
                             <label for="service_lst">Choix du Service</label>
-                            <select class="custom-select" id="service_lst" required>
+                            <select class="custom-select" name="service_lst" required>
                               <option value="Midi">Midi</option>
                               <option value="Soir">Soir</option>
     						              <option value="Midi/Soir">Midi/Soir</option>
@@ -67,7 +67,7 @@
                       </div>
                       <div class="d-flex justify-content-center">
                         <button class="btn btn-primary" type="submit">Valider</button>
-                        <button class="btn btn-primary ml-2" type ="submit" value="Réinitialiser" name="reset_date">Réinitialiser</button>
+                        <a class="btn btn-primary ml-2" href="./admin_reserv.php?action=reset_date">Réinitialiser</a>
                       </div>
                     </form>
                   </div>
@@ -82,190 +82,195 @@
         <section>
             <div class="container">
                 <div class="row justify-content-center">
-                  <?php
-                    $choiceDate = isset($_POST['trip-start']) ? $_POST['trip-start'] : NULL;
-                    $choiceDate = strval($choiceDate);
-
-                    $lenDate = strlen($choiceDate);
-                    if ($_SESSION["save_date"] == NULL && $lenDate > 0){
-                      $_SESSION["save_date"] = $choiceDate;
-                    }else if ($_SESSION["save_date"] != NULL && $lenDate > 0) {
-                      $_SESSION["save_date"] = $choiceDate;
-                    }else if ($_SESSION["save_date"] != NULL && $lenDate == 0){
-                      $choiceDate = $_SESSION["save_date"];
-                    }
-                    
-
-                    $choiceService = isset($_POST['service_lst']) ? $_POST['service_lst'] : NULL;
-
-                    if (isset($_POST['reset_date'])){
+                  <?php    
+                  
+                    if (isset($_GET['action'])){
                       $choiceDate = NULL;
                       $choiceService = NULL;
+                      $lenDate = 0;
                     }
 
-                    $dataReserv;
-
-                    if ($lenDate > 0 && $choiceService != NULL){
-                      $dataReserv = CountAllReserv($choiceDate,$choiceService);
-
-                      echo '
-                        <br><div class="col-xs-6 btn btn-light mr-5">Date choisi : '.$choiceDate.'</div>
-                        <div class="col-xs-6 btn btn-light mr-5">Service : '.$choiceService.'</div>
-                      ';
+                    if (isset($_POST['trip-start']) || $choiceDate == NULL){
+                      $choiceDate = $_POST['trip-start'];
+                      $choiceService = $_POST['service_lst'];
+                      $lenDate = strlen($choiceDate);
   
-                    }else {
-                      $dataReserv = CountAllReserv("","All");
+                      
+  
+                      if ($_SESSION["save_date"] == NULL && $lenDate > 0){
+                        $_SESSION["save_date"] = $choiceDate;
+                      }else if ($_SESSION["save_date"] != NULL && $lenDate > 0) {
+                        $_SESSION["save_date"] = $choiceDate;
+                      }else if ($_SESSION["save_date"] != NULL && $lenDate == 0){
+                        $choiceDate = $_SESSION["save_date"];
+                      }
+  
+                      $dataReserv;
+  
+  
+                      if ($lenDate > 0){
+                        $dataReserv = CountAllReserv($choiceDate,$choiceService);
+  
+                        echo '
+                          <br><div class="col-xs-6 btn btn-light mr-5">Date choisi : '.$choiceDate.'</div>
+                          <div class="col-xs-6 btn btn-light mr-5">Service : '.$choiceService.'</div>
+                        ';
+    
+                      }else {
+                        $dataReserv = CountAllReserv("","All");
+                      }
+  
+                        echo '
+  
+                        <br><div class="col-xs-4 btn btn-light mr-5">Total de couverts : '.$dataReserv[0].'</div>
+                        <div class="col-xs-4 btn btn-light mr-5">Total de personne(s) : '.$dataReserv[1].'</div>
+                        <div class="col-xs-4 btn btn-light">Total de réservation(s) : '.$dataReserv[2].'</div>
+                        </div>
+                        
+                        ';
+  
+                        echo '</div><br>
+                        
+                        <div class="row">';
+  
+                        if ($lenDate > 0){
+                          $requete;
+                          if ($choiceService == "Midi/Soir"){
+                            $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $choiceDate ."'");
+                          }else {
+                            $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $choiceDate ."' AND service = '". $choiceService ."'");
+                          }
+                        }else {
+                          $requete = mysqli_query($db,"SELECT * FROM reservations");
+                        } 
+                        $ligne;
+  
+                        while ($ligne = mysqli_fetch_assoc($requete)){
+                          if (isset($_SESSION['perm_gest_reserv'])){
+                            if ($_SESSION['perm_gest_reserv'] == 1){
+                              $nbrCouverts = 0;
+                              if ($ligne['nbr_Personnes']%2 != 0){
+                                $nbrCouverts = $nbrCouverts+($ligne['nbr_Personnes']+1);
+                              }else {
+                                $nbrCouverts = $nbrCouverts+$ligne['nbr_Personnes'];
+                              }
+                              echo '<div class="col-lg-4">
+                              <div class="card card-margin">
+                                  <div class="card-body pt-0">
+                                      <div class="widget-49">
+                                        <div class="widget-49-title-wrapper">
+                                            <div class="widget-49-date-primary">
+                                                <span class="widget-49-date-day">'.date('d', strtotime($ligne['date_Reservation'])).'/</span>
+                                                <span class="widget-49-date-month">'.date('m', strtotime($ligne['date_Reservation'])).'</span>
+                                            </div>
+                                            <div class="widget-49-meeting-info">
+                                                <span class="widget-49-pro-title">'.$ligne['prenom'].' '.$ligne['nom'].'</span>
+                                                <span class="widget-49-meeting-time">'.date('H:i:s', strtotime($ligne['date_Reservation'])).'</span>
+                                            </div>
+                                        </div>
+                                        <ol class="widget-49-meeting-points">
+                                            <li class="widget-49-meeting-item"><span>Téléphone : 0'.$ligne['telephone'].'</span></li>
+                                            <li class="widget-49-meeting-item"><span>E-mail : '.$ligne['mail'].'</span></li>
+                                            <li class="widget-49-meeting-item"><span>Nombre de personne(s) : '.$ligne['nbr_Personnes'].'</span></li>
+                                            <li class="widget-49-meeting-item"><span>Nombre de couvert(s) : '.$nbrCouverts.'</span></li>
+                                        </ol>
+                                        <h5 class="text-center">Modification</h5>
+  
+                                        
+                                        <div class="widget-49-meeting-action text-center">
+                                          <form action="./admin_reserv.php" enctype="multipart/form-data" method="post">                                        
+                                            <div class="form-group">
+                                              <label for="start">Choix d\'une date de réservation :</label>
+                                              <input type="date" id="start" name="trip-start2" class="form-control"  value="jj/mm/aaaa" min="2018-01-01" max="2023-01-01">
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="nbr_personne">Changement nombre de personne(s)</label>
+                                              <input type="number" name="nbr_personne" value="0" >
+                                              <input id="id_Reserv" name="id_Reserv" type="hidden" value="'.$ligne['id_Reservation'].'">
+                                              
+                                            </div>
+                                            <input type="submit" class="btn btn-primary" value="Valider" name="Valider">
+                                            <input type="submit" class="btn btn-warning" value="Annuler" name="Annuler">
+                                          </form>
+                                        </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              </div>';
+                            }else {
+                              echo '<div class="col-lg-4">
+                              <div class="card card-margin">
+                                  <div class="card-body pt-0">
+                                      <div class="widget-49">
+                                        <div class="widget-49-title-wrapper">
+                                            <div class="widget-49-date-primary">
+                                                <span class="widget-49-date-day">'.date('d', strtotime($ligne['date_Reservation'])).'/</span>
+                                                <span class="widget-49-date-month">'.date('m', strtotime($ligne['date_Reservation'])).'</span>
+                                            </div>
+                                            <div class="widget-49-meeting-info">
+                                                <span class="widget-49-pro-title">'.$ligne['prenom'].' '.$ligne['nom'].'</span>
+                                                <span class="widget-49-meeting-time">'.date('H:i:s', strtotime($ligne['date_Reservation'])).'</span>
+                                            </div>
+                                        </div>
+                                        <ol class="widget-49-meeting-points">
+                                            <li class="widget-49-meeting-item"><span>Téléphone : 0'.$ligne['telephone'].'</span></li>
+                                            <li class="widget-49-meeting-item"><span>E-mail : '.$ligne['mail'].'</span></li>
+                                            <li class="widget-49-meeting-item"><span>Nombre de personne(s) : '.$ligne['nbr_Personnes'].'</span></li>
+                                            <li class="widget-49-meeting-item"><span>Nombre de couvert(s) : '.$nbrCouverts.'</span></li>
+                                        </ol>
+                                      </div>
+                                  </div>
+                              </div>
+                              </div>';
+                            }
+                          }
+                        }
+                        
+  
+                        if (!empty($_POST["Annuler"])){
+                          $dataId = intval($_POST['id_Reserv']);
+                          $requete = mysqli_query($db,"DELETE FROM reservations WHERE id_Reservation = $dataId");
+  
+                          header('Location: admin_reserv.php');
+                          exit;
+                        };
+  
+                        if (!empty($_POST["Valider"])){
+                          $dataId = intval($_POST['id_Reserv']);
+                          $datanbrPersonnes = intval($_POST['nbr_personne']);
+  
+                          $choiceDate = $_POST['trip-start2'];
+                          $lenDate = strlen($choiceDate);
+  
+                          $newService = "Midi";
+                          $heure;
+  
+                          if ($lenDate != 0){
+                            $heure = date('H',strtotime($choiceDate));
+  
+                            if ($heure >= 12 && $heure <= 18){
+                              $newService = "Midi";
+                            }else {
+                              $newService = "Soir";
+                            }
+                          }
+  
+                          if ($datanbrPersonnes > 0 && $lenDate != 0){									
+                            $requete = mysqli_query($db,"UPDATE reservations SET nbr_Personnes=$datanbrPersonnes,date_Reservation = '". $choiceDate ."' WHERE id_Reservation = $dataId");				
+                          }elseif ($datanbrPersonnes > 0 && $choiceDate == NULL){
+                            $requete = mysqli_query($db,"UPDATE reservations SET nbr_Personnes=$datanbrPersonnes WHERE id_Reservation = $dataId");
+                          }elseif ($datanbrPersonnes == 0 && $lenDate != 0){
+                            $requete = mysqli_query($db,"UPDATE reservations SET service = '". $newService ."',date_Reservation = '". $choiceDate ."' WHERE id_Reservation = $dataId");
+                          }
+  
+                          exit;
+                          header('Location: admin_reserv.php');
+                          
+  
+                        }
+                      
                     }
 
-                      echo '
-
-                      <br><div class="col-xs-4 btn btn-light mr-5">Total de couverts : '.$dataReserv[0].'</div>
-                      <div class="col-xs-4 btn btn-light mr-5">Total de personne(s) : '.$dataReserv[1].'</div>
-                      <div class="col-xs-4 btn btn-light mr-5">Total de réservation(s) : '.$dataReserv[2].'</div>
-                      </div>
-                      
-                      ';
-
-                      echo '</div><br>
-                      
-                      <div class="row">';
-
-                      if ($lenDate > 0 && $choiceService != NULL){
-                        $requete;
-                        if ($choiceService == "Midi/Soir"){
-                          $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $choiceDate ."'");
-                        }else {
-                          $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $choiceDate ."' AND service = '". $choiceService ."'");
-                        }
-                      }else {
-                        $requete = mysqli_query($db,"SELECT * FROM reservations");
-                      } 
-                      $ligne;
-
-                      while ($ligne = mysqli_fetch_assoc($requete)){
-                        if (isset($_SESSION['perm_gest_reserv'])){
-                          if ($_SESSION['perm_gest_reserv'] == 1){
-                            $nbrCouverts = 0;
-                            if ($ligne['nbr_Personnes']%2 != 0){
-                              $nbrCouverts = $nbrCouverts+($ligne['nbr_Personnes']+1);
-                            }else {
-                              $nbrCouverts = $nbrCouverts+$ligne['nbr_Personnes'];
-                            }
-                            echo '<div class="col-lg-4">
-                            <div class="card card-margin">
-                                <div class="card-body pt-0">
-                                    <div class="widget-49">
-                                      <div class="widget-49-title-wrapper">
-                                          <div class="widget-49-date-primary">
-                                              <span class="widget-49-date-day">'.date('d', strtotime($ligne['date_Reservation'])).'/</span>
-                                              <span class="widget-49-date-month">'.date('m', strtotime($ligne['date_Reservation'])).'</span>
-                                          </div>
-                                          <div class="widget-49-meeting-info">
-                                              <span class="widget-49-pro-title">'.$ligne['prenom'].' '.$ligne['nom'].'</span>
-                                              <span class="widget-49-meeting-time">'.date('H:i:s', strtotime($ligne['date_Reservation'])).'</span>
-                                          </div>
-                                      </div>
-                                      <ol class="widget-49-meeting-points">
-                                          <li class="widget-49-meeting-item"><span>Téléphone : 0'.$ligne['telephone'].'</span></li>
-                                          <li class="widget-49-meeting-item"><span>E-mail : '.$ligne['mail'].'</span></li>
-                                          <li class="widget-49-meeting-item"><span>Nombre de personne(s) : '.$ligne['nbr_Personnes'].'</span></li>
-                                          <li class="widget-49-meeting-item"><span>Nombre de couvert(s) : '.$nbrCouverts.'</span></li>
-                                      </ol>
-                                      <h5 class="text-center">Modification</h5>
-
-                                      
-                                      <div class="widget-49-meeting-action text-center">
-                                        <form action="./admin_reserv.php" enctype="multipart/form-data" method="post">                                        
-                                          <div class="form-group">
-                                            <label for="start">Choix d\'une date de réservation :</label>
-                                            <input type="date" id="start" name="trip-start2" class="form-control"  value="jj/mm/aaaa" min="2018-01-01" max="2023-01-01">
-                                          </div>
-                                          <div class="form-group">
-                                            <label for="nbr_personne">Changement nombre de personne(s)</label>
-                                            <input type="number" name="nbr_personne" value="0" >
-                                            <input id="id_Reserv" name="id_Reserv" type="hidden" value="'.$ligne['id_Reservation'].'">
-                                            
-                                          </div>
-                                          <input type="submit" class="btn btn-primary" value="Valider" name="Valider">
-                                          <input type="submit" class="btn btn-warning" value="Annuler" name="Annuler">
-                                        </form>
-                                      </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>';
-                          }else {
-                            echo '<div class="col-lg-4">
-                            <div class="card card-margin">
-                                <div class="card-body pt-0">
-                                    <div class="widget-49">
-                                      <div class="widget-49-title-wrapper">
-                                          <div class="widget-49-date-primary">
-                                              <span class="widget-49-date-day">'.date('d', strtotime($ligne['date_Reservation'])).'/</span>
-                                              <span class="widget-49-date-month">'.date('m', strtotime($ligne['date_Reservation'])).'</span>
-                                          </div>
-                                          <div class="widget-49-meeting-info">
-                                              <span class="widget-49-pro-title">'.$ligne['prenom'].' '.$ligne['nom'].'</span>
-                                              <span class="widget-49-meeting-time">'.date('H:i:s', strtotime($ligne['date_Reservation'])).'</span>
-                                          </div>
-                                      </div>
-                                      <ol class="widget-49-meeting-points">
-                                          <li class="widget-49-meeting-item"><span>Téléphone : 0'.$ligne['telephone'].'</span></li>
-                                          <li class="widget-49-meeting-item"><span>E-mail : '.$ligne['mail'].'</span></li>
-                                          <li class="widget-49-meeting-item"><span>Nombre de personne(s) : '.$ligne['nbr_Personnes'].'</span></li>
-                                          <li class="widget-49-meeting-item"><span>Nombre de couvert(s) : '.$nbrCouverts.'</span></li>
-                                      </ol>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>';
-                          }
-                        }
-                      }
-                      
-
-                      if (!empty($_POST["Annuler"])){
-                        $dataId = intval($_POST['id_Reserv']);
-                        $requete = mysqli_query($db,"DELETE FROM reservations WHERE id_Reservation = $dataId");
-
-                        header('Location: admin_reserv.php');
-                        exit;
-                      };
-
-                      if (!empty($_POST["Valider"])){
-                        $dataId = intval($_POST['id_Reserv']);
-                        $datanbrPersonnes = intval($_POST['nbr_personne']);
-
-                        $choiceDate = $_POST['trip-start2'];
-                        $lenDate = strlen($choiceDate);
-
-                        $newService = "Midi";
-                        $heure;
-
-                        if ($lenDate != 0){
-                          $heure = date('H',strtotime($choiceDate));
-
-                          if ($heure >= 12 && $heure <= 18){
-                            $newService = "Midi";
-                          }else {
-                            $newService = "Soir";
-                          }
-                        }
-
-                        if ($datanbrPersonnes > 0 && $lenDate != 0){									
-                          $requete = mysqli_query($db,"UPDATE reservations SET nbr_Personnes=$datanbrPersonnes,date_Reservation = '". $choiceDate ."' WHERE id_Reservation = $dataId");				
-                        }elseif ($datanbrPersonnes > 0 && $choiceDate == NULL){
-                          $requete = mysqli_query($db,"UPDATE reservations SET nbr_Personnes=$datanbrPersonnes WHERE id_Reservation = $dataId");
-                        }elseif ($datanbrPersonnes == 0 && $lenDate != 0){
-                          $requete = mysqli_query($db,"UPDATE reservations SET service = '". $newService ."',date_Reservation = '". $choiceDate ."' WHERE id_Reservation = $dataId");
-                        }
-
-                        exit;
-                        header('Location: admin_reserv.php');
-                        
-
-                      }
-                    
                     ?>
                     </div>
   
