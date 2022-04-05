@@ -4,6 +4,8 @@
   
     VerifAuthentification();
     RemoveAfter21Days();
+
+    
 ?>
 
 <!doctype html>
@@ -82,30 +84,43 @@
         <section>
             <div class="container">
                 <div class="row justify-content-center">
-                  <?php    
-                  
-                    if (isset($_GET['action'])){
-                      $choiceDate = NULL;
-                      $choiceService = NULL;
-                      $lenDate = 0;
-                    }
+                  <?php   
+                      $lenDate = 0; 
+                    
+                      if (isset($_GET['action'])){
+                        $choiceDate = NULL;
+                        $choiceService = NULL;
+                      }
 
-                    if (isset($_POST['trip-start']) || $choiceDate == NULL){
-                      $choiceDate = $_POST['trip-start'];
-                      $choiceService = $_POST['service_lst'];
-                      $lenDate = strlen($choiceDate);
-  
-                      
-  
-                      if ($_SESSION["save_date"] == NULL && $lenDate > 0){
-                        $_SESSION["save_date"] = $choiceDate;
-                      }else if ($_SESSION["save_date"] != NULL && $lenDate > 0) {
-                        $_SESSION["save_date"] = $choiceDate;
-                      }else if ($_SESSION["save_date"] != NULL && $lenDate == 0){
-                        $choiceDate = $_SESSION["save_date"];
+                      if (isset($_POST['trip-start'])){
+                        $choiceDate = $_POST['trip-start'];
+                        $choiceService = $_POST['service_lst'];
+                        $lenDate = strlen($choiceDate);
                       }
   
                       $dataReserv;
+
+                      if ($lenDate > 0){
+                        $requete;
+
+                        if ($_SESSION["save_date"] == NULL && $lenDate > 0){
+                          $_SESSION["save_date"] = $choiceDate;
+                        }else if ($_SESSION["save_date"] != NULL && $lenDate > 0) {
+                          $_SESSION["save_date"] = $choiceDate;
+                        }else if ($_SESSION["save_date"] != NULL && $lenDate == 0){
+                          $choiceDate = $_SESSION["save_date"];
+                        }
+
+                        if ($choiceService == "Midi/Soir"){
+                          $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $choiceDate ."'");
+                        }else {
+                          $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $choiceDate ."' AND service = '". $choiceService ."'");
+                        }
+
+                      }else {
+                        $requete = mysqli_query($db,"SELECT * FROM reservations");
+                      } 
+                      $ligne;
   
   
                       if ($lenDate > 0){
@@ -133,17 +148,7 @@
                         
                         <div class="row">';
   
-                        if ($lenDate > 0){
-                          $requete;
-                          if ($choiceService == "Midi/Soir"){
-                            $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $choiceDate ."'");
-                          }else {
-                            $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $choiceDate ."' AND service = '". $choiceService ."'");
-                          }
-                        }else {
-                          $requete = mysqli_query($db,"SELECT * FROM reservations");
-                        } 
-                        $ligne;
+
   
                         while ($ligne = mysqli_fetch_assoc($requete)){
                           if (isset($_SESSION['perm_gest_reserv'])){
@@ -154,7 +159,7 @@
                               }else {
                                 $nbrCouverts = $nbrCouverts+$ligne['nbr_Personnes'];
                               }
-                              echo '<div class="col-lg-4">
+                              echo '<div class="col-lg-2">
                               <div class="card card-margin">
                                   <div class="card-body pt-0">
                                       <div class="widget-49">
@@ -174,10 +179,9 @@
                                             <li class="widget-49-meeting-item"><span>Nombre de personne(s) : '.$ligne['nbr_Personnes'].'</span></li>
                                             <li class="widget-49-meeting-item"><span>Nombre de couvert(s) : '.$nbrCouverts.'</span></li>
                                         </ol>
-                                        <h5 class="text-center">Modification</h5>
-  
-                                        
-                                        <div class="widget-49-meeting-action text-center">
+                                                                                
+                                        <div class="widget-49-meeting-action text-center text-dark">
+                                          <h5 class="text-center">Modification</h5><hr>
                                           <form action="./admin_reserv.php" enctype="multipart/form-data" method="post">                                        
                                             <div class="form-group">
                                               <label for="start">Choix d\'une date de réservation :</label>
@@ -198,7 +202,7 @@
                               </div>
                               </div>';
                             }else {
-                              echo '<div class="col-lg-4">
+                              echo '<div class="col-lg-2">
                               <div class="card card-margin">
                                   <div class="card-body pt-0">
                                       <div class="widget-49">
@@ -225,7 +229,8 @@
                             }
                           }
                         }
-                        
+
+
   
                         if (!empty($_POST["Annuler"])){
                           $dataId = intval($_POST['id_Reserv']);
@@ -269,7 +274,7 @@
   
                         }
                       
-                    }
+                    //}
 
                     ?>
                     </div>

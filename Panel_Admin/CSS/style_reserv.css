@@ -5,12 +5,12 @@
  html,body {
   height: 100%;
   background-color: #333;
+  color: #dde1e9;
 }
 
 body {
   display: -ms-flexbox;
   display: flex;
-  color: #fff;
   text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
 }
  
@@ -51,6 +51,7 @@ body {
 .card-header:first-child {
     border-radius: calc(8px - 1px) calc(8px - 1px) 0 0;
 }
+
 
 .widget-49 .widget-49-title-wrapper {
   display: flex;
@@ -313,10 +314,10 @@ body {
   margin-left: .5rem;
 }
 
+.widget-49-meeting-action {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
 .widget-49 .widget-49-meeting-action {
   text-align: right;
 }
 
-.widget-49 .widget-49-meeting-action a {
-  text-transform: uppercase;
-}

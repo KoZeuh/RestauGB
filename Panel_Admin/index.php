@@ -16,7 +16,7 @@
     <title>Restau GB - Gestion Accueil</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link rel="stylesheet" href="CSS/style_connexion.css">
+    <link rel="stylesheet" href="CSS/style_index.css">
 
 
 
@@ -45,7 +45,7 @@
               <div class="container">
                 <div class="row">
                   <div class="col-sm-12 content justify-content-start" data-aos="fade-left">
-                    <br><h3 class="text-center">Bienvenue sur le Panel de gestion du Restau' GB !</h3>
+                    <br><h3 class="text-center" id="text_test">Bienvenue sur le Panel de gestion du Restau' GB !</h3>
                     <p class="font-italic mt-5 text-center">
                         Tu es actuellement connecté en tant que <b><strong><?php echo ''.$_SESSION['identifiant'].'';  ?></b></strong>
                     </p>
