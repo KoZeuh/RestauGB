@@ -47,7 +47,65 @@
 
         <form action="./admin_plats.php" enctype="multipart/form-data" method="post">
         <section><hr>
-            <h3 class="text-center">Liste des Plats</h3>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-12 content justify-content-start" data-aos="fade-left">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                              <select class="custom-select" name="select_jour" required>
+                                  <option selected disabled value="">Choix du jour</option>
+                                  <option value="1">Mardi</option>
+                      <option value="2">Mercredi</option>
+                                  <option value="3">Jeudi</option>
+                                  <option value="4">Vendredi</option>
+                              </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <select class="custom-select" name="select_mois" required>
+                                  <option selected disabled value="">Choix du mois</option>
+                                  <option value="1">Janvier</option>
+                      <option value="2">Février</option>
+                                  <option value="3">Mars</option>
+                                  <option value="4">Avril</option>
+                                  <option value="5">Mai</option>
+                                  <option value="6">Juin</option>
+                                  <option value="7">Juillet</option>
+                                  <option value="8">Août</option>
+                                  <option value="9">Septembre</option>
+                                  <option value="10">Octobre</option>
+                                  <option value="11">Novembre</option>
+                                  <option value="12">Décembre</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                          <button class="btn btn-primary" type="submit" name="valid_plat" >Valider</button>
+                        </div>
+                      
+                    </div>
+                  </div>
+          
+                </div>
+
+                  <?php
+                      if (isset($_POST['plat'])){
+                          $nomPlat = $_POST['plat'];
+                          $prixPlat = intval($_POST['prixPlat']);
+                          $choixJour = intval($_POST['select_jour']);
+                          $choixMois = intval($_POST['select_mois']);
+
+                          $sql_result = mysqli_query($db,"SELECT `numJour`,`numMois` FROM `platdujour` WHERE `numJour` =  $choixJour AND `numMois` = $choixMois");
+
+                          if(mysqli_num_rows($sql_result) > 0 ){
+                              $requete = mysqli_query($db,"UPDATE platdujour SET nomPlatJour='". $nomPlat ."',prixHT = '". $prixPlat ."' WHERE numJour = '". $choixJour ."' AND numMois = '". $choixMois ."'");	
+                          }
+                          else{
+                              $requete = mysqli_query($db, "INSERT INTO platdujour (numJour,numMois,nomPlatJour,prixHT) VALUES ('". $choixJour ."','". $choixMois ."','". $nomPlat ."','". $prixPlat ."')");
+                          }
+                      }
+                  ?>
+            </section>
+            <section><h3 class="text-center">Liste des Plats</h3>
 
             <div class="row clearfix">
                 <?php
@@ -77,65 +135,6 @@
             </div>
         </section><br>
 
-        <section>
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm-12 content justify-content-start" data-aos="fade-left">
-                      <div class="form-row">
-                          <div class="col-md-6 mb-3">
-                            <select class="custom-select" name="select_jour" required>
-                                <option selected disabled value="">Choix du jour</option>
-                                <option value="1">Mardi</option>
-    						    <option value="2">Mercredi</option>
-                                <option value="3">Jeudi</option>
-                                <option value="4">Vendredi</option>
-                            </select>
-                          </div>
-                          <div class="col-md-6 mb-3">
-                            <select class="custom-select" name="select_mois" required>
-                                <option selected disabled value="">Choix du mois</option>
-                                <option value="1">Janvier</option>
-    						    <option value="2">Février</option>
-                                <option value="3">Mars</option>
-                                <option value="4">Avril</option>
-                                <option value="5">Mai</option>
-                                <option value="6">Juin</option>
-                                <option value="7">Juillet</option>
-                                <option value="8">Août</option>
-                                <option value="9">Septembre</option>
-                                <option value="10">Octobre</option>
-                                <option value="11">Novembre</option>
-                                <option value="12">Décembre</option>
-                            </select>
-                          </div>
-                      </div>
-                      <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary" type="submit" name="valid_plat" >Valider</button>
-                      </div>
-                    
-                  </div>
-                </div>
-        
-              </div>
-
-                <?php
-                    if (isset($_POST['plat'])){
-                        $nomPlat = $_POST['plat'];
-                        $prixPlat = intval($_POST['prixPlat']);
-                        $choixJour = intval($_POST['select_jour']);
-                        $choixMois = intval($_POST['select_mois']);
-
-                        $sql_result = mysqli_query($db,"SELECT `numJour`,`numMois` FROM `platdujour` WHERE `numJour` =  $choixJour AND `numMois` = $choixMois");
-
-                        if(mysqli_num_rows($sql_result) > 0 ){
-                            $requete = mysqli_query($db,"UPDATE platdujour SET nomPlatJour='". $nomPlat ."',prixHT = '". $prixPlat ."' WHERE numJour = '". $choixJour ."' AND numMois = '". $choixMois ."'");	
-                        }
-                        else{
-                            $requete = mysqli_query($db, "INSERT INTO platdujour (numJour,numMois,nomPlatJour,prixHT) VALUES ('". $choixJour ."','". $choixMois ."','". $nomPlat ."','". $prixPlat ."')");
-                        }
-                    }
-                ?>
-        </section>
         </form>
 
         

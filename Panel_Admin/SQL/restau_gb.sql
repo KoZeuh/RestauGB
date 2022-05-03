@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 20 jan. 2022 à 22:40
--- Version du serveur :  5.7.31
--- Version de PHP : 7.3.21
+-- Généré le :  mar. 03 mai 2022 à 15:00
+-- Version du serveur :  10.4.10-MariaDB
+-- Version de PHP :  7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `restau_gb`
+-- Base de données :  `restau_gb`
 --
 
 -- --------------------------------------------------------
@@ -45,6 +46,12 @@ CREATE TABLE IF NOT EXISTS `admin_comptes` (
 INSERT INTO `admin_comptes` (`prenom`, `nom`, `identifiant`, `mot_de_passe`, `perm_gest_admin`, `perm_gest_reserv`) VALUES
 ('KoZeuh', 'Dev', 'kozeuh.dev', '098f6bcd4621d373cade4e832627b4f6', 1, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `liste_plats`
+--
+
 DROP TABLE IF EXISTS `liste_plats`;
 CREATE TABLE IF NOT EXISTS `liste_plats` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -52,7 +59,22 @@ CREATE TABLE IF NOT EXISTS `liste_plats` (
   `prix` int(5) NOT NULL,
   `nomImage` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `liste_plats`
+--
+
+INSERT INTO `liste_plats` (`id`, `nomPlat`, `prix`, `nomImage`) VALUES
+(1, 'Burger Frites', 5, 'burger-frites.jpg'),
+(2, 'Chakchouka', 10, 'chakchouka.jpg'),
+(3, 'Couscous', 12, 'couscous.jpg'),
+(4, 'Lasagne', 11, 'lasagne.jpg'),
+(5, 'Moules Frites', 10, 'moules-frites.jpeg'),
+(6, 'Plat de fromage & pain', 9, 'pain-plat-fromage.jpg'),
+(7, 'Patates', 5, 'patates.jpg'),
+(8, 'Riz Poulet & Petits Pois', 8, 'riz-au-poulet-et-petits-pois.jpg'),
+(9, 'Salade Parisienne', 11, 'salade-parisienne.jpg');
 
 -- --------------------------------------------------------
 
@@ -68,7 +90,14 @@ CREATE TABLE IF NOT EXISTS `platdujour` (
   `nomPlatJour` varchar(255) NOT NULL,
   `prixHT` int(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `platdujour`
+--
+
+INSERT INTO `platdujour` (`id`, `numJour`, `numMois`, `nomPlatJour`, `prixHT`) VALUES
+(1, 1, 5, 'Burger Frites', 5);
 
 -- --------------------------------------------------------
 
@@ -89,8 +118,13 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   PRIMARY KEY (`id_Reservation`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `reservations`
+--
 
-
+INSERT INTO `reservations` (`id_Reservation`, `prenom`, `nom`, `telephone`, `mail`, `date_Reservation`, `nbr_Personnes`, `service`) VALUES
+(1, 'Max', 'Ad', 654346547, 'a@a.fr', '2022-05-03 13:00:00', 3, 'Midi');
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
