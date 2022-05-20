@@ -6,7 +6,7 @@
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,7 +55,7 @@
                               <select class="custom-select" name="select_jour" required>
                                   <option selected disabled value="">Choix du jour</option>
                                   <option value="1">Mardi</option>
-                      <option value="2">Mercredi</option>
+                                  <option value="2">Mercredi</option>
                                   <option value="3">Jeudi</option>
                                   <option value="4">Vendredi</option>
                               </select>

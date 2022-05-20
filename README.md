@@ -7,7 +7,7 @@
 <h2 align="center"> Restaurant GB </h2>
 <h4 align="center"> Ce projet est une réalisation de site web avec un panel de gestion pour un restaurant. (TP du BTS SIO 1ère année) <h4>
 
-## Demo Panel de Gestion (KoZeuh)- [Clique ici](https://streamable.com/4m0xw7)
+## Demo Panel de Gestion (KoZeuh)- [Clique ici](https://streamable.com/n387mg)
 ## Demo Site Web (XKGD & Spaghefoo)- [Indisponible](link)
 
 ## :fire: Fonctionnalités Site Web
