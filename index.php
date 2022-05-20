@@ -192,7 +192,7 @@
                         1=>'Monday', 
                         2=>'Tuesday', 
                         3=>'Wednesday', 
-                        4=>'Friday', 
+                        4=>'Thursday', 
                     );
 
                     $dateJ = date('l');
