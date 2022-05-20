@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 03 mai 2022 à 15:00
--- Version du serveur :  10.4.10-MariaDB
--- Version de PHP :  7.3.12
+-- Hôte : 127.0.0.1
+-- Généré le : ven. 20 mai 2022 à 13:51
+-- Version du serveur : 10.4.24-MariaDB
+-- Version de PHP : 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `restau_gb`
+-- Base de données : `restau_gb`
 --
 
 -- --------------------------------------------------------
@@ -28,15 +27,13 @@ SET time_zone = "+00:00";
 -- Structure de la table `admin_comptes`
 --
 
-DROP TABLE IF EXISTS `admin_comptes`;
-CREATE TABLE IF NOT EXISTS `admin_comptes` (
+CREATE TABLE `admin_comptes` (
   `prenom` varchar(255) NOT NULL,
   `nom` varchar(255) NOT NULL,
   `identifiant` varchar(255) NOT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
   `perm_gest_admin` int(1) NOT NULL,
-  `perm_gest_reserv` int(1) NOT NULL,
-  PRIMARY KEY (`identifiant`)
+  `perm_gest_reserv` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -44,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `admin_comptes` (
 --
 
 INSERT INTO `admin_comptes` (`prenom`, `nom`, `identifiant`, `mot_de_passe`, `perm_gest_admin`, `perm_gest_reserv`) VALUES
-('KoZeuh', 'Dev', 'kozeuh.dev', '098f6bcd4621d373cade4e832627b4f6', 1, 1);
+('Admin', 'Admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -52,14 +49,12 @@ INSERT INTO `admin_comptes` (`prenom`, `nom`, `identifiant`, `mot_de_passe`, `pe
 -- Structure de la table `liste_plats`
 --
 
-DROP TABLE IF EXISTS `liste_plats`;
-CREATE TABLE IF NOT EXISTS `liste_plats` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `liste_plats` (
+  `id` int(11) NOT NULL,
   `nomPlat` varchar(255) NOT NULL,
   `prix` int(5) NOT NULL,
-  `nomImage` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+  `nomImage` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `liste_plats`
@@ -82,15 +77,13 @@ INSERT INTO `liste_plats` (`id`, `nomPlat`, `prix`, `nomImage`) VALUES
 -- Structure de la table `platdujour`
 --
 
-DROP TABLE IF EXISTS `platdujour`;
-CREATE TABLE IF NOT EXISTS `platdujour` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `platdujour` (
+  `id` int(11) NOT NULL,
   `numJour` int(5) NOT NULL,
   `numMois` int(5) NOT NULL,
   `nomPlatJour` varchar(255) NOT NULL,
-  `prixHT` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `prixHT` int(5) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `platdujour`
@@ -105,25 +98,74 @@ INSERT INTO `platdujour` (`id`, `numJour`, `numMois`, `nomPlatJour`, `prixHT`) V
 -- Structure de la table `reservations`
 --
 
-DROP TABLE IF EXISTS `reservations`;
-CREATE TABLE IF NOT EXISTS `reservations` (
-  `id_Reservation` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `reservations` (
+  `id_Reservation` int(10) NOT NULL,
   `prenom` varchar(255) NOT NULL,
   `nom` varchar(255) NOT NULL,
   `telephone` int(11) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `date_Reservation` datetime NOT NULL,
   `nbr_Personnes` int(2) NOT NULL,
-  `service` varchar(10) NOT NULL,
-  PRIMARY KEY (`id_Reservation`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `service` varchar(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `reservations`
 --
 
 INSERT INTO `reservations` (`id_Reservation`, `prenom`, `nom`, `telephone`, `mail`, `date_Reservation`, `nbr_Personnes`, `service`) VALUES
-(1, 'Max', 'Ad', 654346547, 'a@a.fr', '2022-05-03 13:00:00', 3, 'Midi');
+(1, 'Max', 'Ad', 654346547, 'a@a.fr', '2022-05-19 13:00:00', 3, 'Midi'),
+(2, 'Max', 'Adqsdf', 654346547, 'a@a.fr', '2022-05-19 19:00:00', 3, 'Soir');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `admin_comptes`
+--
+ALTER TABLE `admin_comptes`
+  ADD PRIMARY KEY (`identifiant`);
+
+--
+-- Index pour la table `liste_plats`
+--
+ALTER TABLE `liste_plats`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `platdujour`
+--
+ALTER TABLE `platdujour`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `reservations`
+--
+ALTER TABLE `reservations`
+  ADD PRIMARY KEY (`id_Reservation`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `liste_plats`
+--
+ALTER TABLE `liste_plats`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT pour la table `platdujour`
+--
+ALTER TABLE `platdujour`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `reservations`
+--
+ALTER TABLE `reservations`
+  MODIFY `id_Reservation` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -35,13 +35,12 @@
         include 'database.php';
 
         $requete;
+        $nDate = "";
         
-        if ($service == "Midi/Soir"){
-            $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $date ."'");
-        }elseif ($service == "All"){
+        if ($service == "Midi/Soir" || $service == "All"){
             $requete = mysqli_query($db,"SELECT * FROM reservations");
         }else {
-            $requete = mysqli_query($db,"SELECT * FROM reservations WHERE date_Reservation = '". $date ."' AND service = '". $service ."'");
+            $requete = mysqli_query($db,"SELECT * FROM reservations WHERE service = '". $service ."'");
         }
 
         $ligne;
@@ -51,17 +50,41 @@
         $NbrReserv = 0;
 
         while ($ligne = mysqli_fetch_assoc($requete)){
-            $nbrPers = intval($ligne['nbr_Personnes']);
-
-            if ($nbrPers%2 != 0){
-                $NbrCouverts = $NbrCouverts+($nbrPers+1);
-            }else {
-                $NbrCouverts = $NbrCouverts+$nbrPers;
+            if ($date != ""){
+                $nDate = date_create($ligne['date_Reservation']);
+                $nDate = date_format($nDate, 'Y-m-d');
             }
-            
 
-            $NbrPersonnes = $NbrPersonnes+$nbrPers;
-            $NbrReserv++;
+
+            if (!isset($date)){
+                $nbrPers = intval($ligne['nbr_Personnes']);
+
+                if ($nbrPers%2 != 0){
+                    $NbrCouverts = $NbrCouverts+($nbrPers+1);
+                }else {
+                    $NbrCouverts = $NbrCouverts+$nbrPers;
+                }
+                
+    
+                $NbrPersonnes = $NbrPersonnes+$nbrPers;
+                $NbrReserv++;
+            }else {
+                if ($date == $nDate){
+                    $nbrPers = intval($ligne['nbr_Personnes']);
+
+                    if ($nbrPers%2 != 0){
+                        $NbrCouverts = $NbrCouverts+($nbrPers+1);
+                    }else {
+                        $NbrCouverts = $NbrCouverts+$nbrPers;
+                    }
+                    
+        
+                    $NbrPersonnes = $NbrPersonnes+$nbrPers;
+                    $NbrReserv++;
+                }
+            }
+
+
         };
 
 
