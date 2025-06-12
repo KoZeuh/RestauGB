@@ -56,6 +56,7 @@
   <img src="previews/panel_users.png" width="280" target="_blank"/>
   <br/>
   <img align="left" src="previews/panel_plats.png" width="280" target="_blank"/>
+  <img src="previews/*.png" width="280" target="_blank"/>
 </details>
 
 ## Features
