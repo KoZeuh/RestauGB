@@ -77,9 +77,9 @@ Feel free to send us feedback -> [file an issue](https://github.com/KoZeuh/Resta
 
 ## Contributors
 
-[@KoZeuh](https://github.com/KoZeuh) (Management Panel)
-[@spaghefoo](https://github.com/spaghefoo) (Website)
-[@dylanlmr](https://github.com/dylanlmr) (Website)
+[@KoZeuh](https://github.com/KoZeuh) (Management Panel) </br>
+[@spaghefoo](https://github.com/spaghefoo) (Website) </br>
+[@dylanlmr](https://github.com/dylanlmr) (Website) </br>
 
 ## Build Process
 
