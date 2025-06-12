@@ -49,7 +49,13 @@
 <details>
   <summary><strong>➡️ View (Management Panel)</strong></summary>
   <br/>
-  <a href="https://panel-restaugb.kozeuh-dev.fr">DEMO</a>
+  <img align="left" src="previews/panel_login.png" width="280" target="_blank"/>
+  <img src="previews/panel_home.png" width="280" target="_blank"/>
+  <br/>
+  <img align="left" src="previews/panel_reservations.png" width="280" target="_blank"/>
+  <img src="previews/panel_users.png" width="280" target="_blank"/>
+  <br/>
+  <img align="left" src="previews/panel_plats.png" width="280" target="_blank"/>
 </details>
 
 ## Features
