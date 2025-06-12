@@ -1,44 +1,89 @@
+<h1 align="center"> Restau'GB </h1> <br>
 <p align="center">
-  <img src="https://zupimages.net/up/22/03/szu1.png"  width="25%"/>
-</a>
-    
+  <a href="https://gitpoint.co/">
+    <img src="logo.png" width="450">
+  </a>
 </p>
 
-<h2 align="center"> Restaurant GB </h2>
-<h4 align="center"> Ce projet est une réalisation de site web avec un panel de gestion pour un restaurant. (TP du BTS SIO 1ère année) <h4>
+<p align="center">
+    This project is the creation of a website with a management panel for a restaurant (TP for BTS SIO 1st year). Built with PHP 8.1.
+</p>
 
-## Demo Panel de Gestion (KoZeuh)- [Clique ici](https://streamable.com/n387mg)
-## Demo Site Web (XKGD & Spaghefoo)- [Clique ici](https://streamable.com/ygm3h7)
+<p align="center">
+  <a href="#">
+    <img alt="Download on the App Store" title="App Store" src="http://i.imgur.com/0n2zqHD.png" width="140">
+  </a>
 
-## :fire: Fonctionnalités Site Web
+  <a href="#">
+    <img alt="Get it on Google Play" title="Google Play" src="http://i.imgur.com/mtGRPuM.png" width="140">
+  </a>
+</p>
 
-- Affichage du plat du jour, choisi dans le Panel de Gestion, selon le jour et le mois.
-- Module de réservation relié au Panel de Gestion pour afficher la liste des réservations.
-- Module de contact.
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
 
-## :fire: Fonctionnalités Panel de gestion
+- [Introduction](#introduction)
+- [Previews](#previews)
+- [Features](#features)
+- [Feedback](#feedback)
+- [Contributors](#contributors)
+- [Build Process](#build-process)
 
-- Connexion par le biais d'un identifiant (prenom.nom) et d'un mot de passe. (Défini par un administrateur)
-- Création de compte administrateur avec 2 choix de permissions. (Accès à la gestion des réservations et des comptes administrateurs)
-- Suppression de compte administrateur.
-- Informations & Modification des réservations.
-- Annulation d'une réservation.
-- Trie des réservations par date.
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Instructions à l'utilisation :
+## Introduction
 
-- Pré-requis:
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](./CONTRIBUTORS.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Gitter chat](https://img.shields.io/badge/chat-on_gitter-008080.svg?style=flat-square)](https://gitter.im/RestauGB)
 
-  - XAMPP/WampServer
+## Previews
 
-- Installation (Panel de gestion) :
+<details>
+  <summary><strong>➡️ View (Website)</strong></summary>
+  <br/>
+  <a href="https://restaugb.kozeuh-dev.fr">DEMO</a>
+</details>
 
-```bash
-< Importer la base de donnée présente dans le dossier SQL >
-< Insérer un compte Administrateur par le biais de la BDD en y insérant un mot de passe sous format MD5 (https://md5decrypt.net/ <- Pour crypter le mdp souhaité) >
-```
+<details>
+  <summary><strong>➡️ View (Management Panel)</strong></summary>
+  <br/>
+  <a href="https://panel-restaugb.kozeuh-dev.fr">DEMO</a>
+</details>
+
+## Features
+
+A few of the things you can do with Restau'GB :
+
+### Website 🌐
+
+* Display of the dish of the day, chosen from the Management Panel, according to day and month.
+* Reservation module linked to the Management Panel to display the list of reservations.
+* Contact module.
+
+### Management Panel ⚙️
+
+* Log in with username (firstname.lastname) and password (defined by an administrator)
+* Create administrator account with 2 choices of permissions. (Access to reservation management and administrator accounts)
+* Administrator account deletion.
+* Reservation information & modification.
+* Reservation cancellation.
+* Sort reservations by date.
+
+## Feedback
+
+Feel free to send us feedback -> [file an issue](https://github.com/KoZeuh/RestauGB/issues/new). Feature requests are always welcome. If you wish to contribute, please take a quick look at the [guidelines](./CONTRIBUTING.md)!
+
+## Contributors
+
+[@KoZeuh](https://github.com/KoZeuh)
+
+## Build Process
+
+- Import SQL file. (`Panel_Gestion/SQL/restau_gb.sql`)
+- Insert an Administrator account via the DB by inserting a password in MD5 format (https://md5decrypt.net/ <- To encrypt the desired password) 
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-## Contributeurs
-
-- @XKGD & @Spaghefoo (Site Web)
